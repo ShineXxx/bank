@@ -9,10 +9,10 @@ import java.util.Map;
 
 @Controller
 public class Hello {
-    @RequestMapping("/")
+    @RequestMapping("/hello")
     public String hello(Map map){
         map.put("a",123);
-        return "index";
+        return "hello";
     }
 
 }

@@ -11,6 +11,6 @@
     <title>测试</title>
 </head>
 <body>
-测试 ${a}
+index
 </body>
 </html>
