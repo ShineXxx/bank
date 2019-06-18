@@ -47,13 +47,4 @@ public class LoginController {
         return result;
     }
 
-    @RequestMapping("/")
-    public String toLogin() {
-        return "login";
-    }
-
-    @RequestMapping("/index")
-    public String toIndex() {
-        return "index";
-    }
 }
