@@ -39,9 +39,7 @@
                 success: function (result) {
                     if (result.state == "success") {
                         window.location.href = result.address;
-                        alert(result.toString() + "success");
                     }else if (result.state=="failed"){
-                        alert(result)
                         var user=typeof(result.usercontent)=="undefined"?"":result.usercontent+" "
                         var pass=typeof(result.passcontent)=="undefined"?"":result.passcontent+" "
                         var cont=typeof(result.msg)=="undefined"?"":result.msg
@@ -49,15 +47,16 @@
                     }
                 },
                 error: function () {
-                    alert("error");
+                    alert("出错了，gun去告诉客服 ");
                 }
             });
+            return false;
         }
     </script>
 </head>
 <body class="text-center">
 <div class="container">
-    <form class="form-signin" onsubmit="return false" method="post">
+    <form class="form-signin" onsubmit="return formadd()" >
         <img class="mb-4" src="/imges/bootstrap-social-logo.png" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <h4 style="color: #c9302c" id="content"></h4>
@@ -70,7 +69,7 @@
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" onclick="formadd()">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" >Sign in</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
     </form>
     <button class="btn btn-default" id="adduser">注册</button>
