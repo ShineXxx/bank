@@ -1,6 +1,8 @@
 package com.abc.bank.controller.user;
 
+import com.abc.bank.registry.User.UserMapper;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +13,10 @@ import javax.validation.constraints.NotNull;
 
 @Controller
 public class LoginController {
+
+    @Autowired
+    UserMapper userMapper;
+
     @ResponseBody
     @RequestMapping("/login")
     public JSONObject login(@RequestParam("username") @NotNull String username, @RequestParam("password") @NotNull String password, HttpServletRequest request) {
@@ -29,8 +35,8 @@ public class LoginController {
         //判断合法
         if (username.matches(userReg) && password.matches(passReg)) {
             //数据库判断用户密码
-            boolean flag = true;
-            if (flag) {
+            String pass=userMapper.getPassword(username);
+            if (password.equals(pass)) {
                 //密码正确
                 result.put("state", "success");
                 result.put("address", "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/index");
