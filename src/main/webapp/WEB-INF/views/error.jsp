@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>测试</title>
+    <title>错误</title>
 </head>
 <body>
-测试 ${a}
+出错了
 </body>
 </html>

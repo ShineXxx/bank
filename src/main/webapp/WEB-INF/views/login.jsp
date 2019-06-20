@@ -42,7 +42,7 @@
                     }else if (result.state=="failed"){
                         var user=typeof(result.usercontent)=="undefined"?"":result.usercontent+" "
                         var pass=typeof(result.passcontent)=="undefined"?"":result.passcontent+" "
-                        var cont=typeof(result.msg)=="undefined"?"":result.msg
+                        var cont=typeof(result.msg)=="undefined"?"":result.msg+" "
                         $("#content").html(user+pass+cont)
                     }
                 },
