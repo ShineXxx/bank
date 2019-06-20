@@ -27,12 +27,12 @@ public class LoginController {
         //构建json对象
         JSONObject result = new JSONObject();
         //username合法判断
-        String userReg = "[1-9][0-9]{3}$";
+        String userReg = "[1-9][0-9]{15}$";
         if (!username.matches(userReg)) {
             result.put("usercontent", "用户名不合法");
         }
         //Password合法判断
-        String passReg = "[1-9][0-9]{3}$";
+        String passReg = "[1-9][0-9]{5}$";
         if (!password.matches(passReg)) {
             result.put("passcontent", "密码不合法");
         }
