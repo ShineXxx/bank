@@ -11,11 +11,12 @@ public class MyInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if (request.getSession().getAttribute("user")!=null){
+            System.out.println("通过拦截"+request.getRequestURI());
             return true;
         }
         System.out.println("请求路径：{}"+ request.getRequestURI());
         try {
-            response.sendRedirect("/error");
+            response.sendRedirect("/404.html");
         } catch (IOException e) {
             e.printStackTrace();
         }
