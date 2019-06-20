@@ -11,6 +11,6 @@
     <title>错误</title>
 </head>
 <body>
-出错了
+<center>未登录，请求被拒</center>
 </body>
 </html>
