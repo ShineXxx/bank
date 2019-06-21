@@ -2,8 +2,8 @@ server:
   port: 8888
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bstms?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
-#    url: jdbc:mysql://94.191.27.223:2206/bstms?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+#    url: jdbc:mysql://localhost:3306/bstms?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://94.191.27.223:2206/bstms?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource

@@ -14,9 +14,9 @@ public class MyInterceptor implements HandlerInterceptor {
             System.out.println("通过拦截"+request.getRequestURI());
             return true;
         }
-        System.out.println("请求路径：{}"+ request.getRequestURI());
+        System.out.println("被拦截路径：{}"+ request.getRequestURI());
         try {
-            response.sendRedirect("/404.html");
+            response.sendRedirect("/404");
         } catch (IOException e) {
             e.printStackTrace();
         }

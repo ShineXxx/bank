@@ -21,10 +21,12 @@ public class WebMvcConf implements WebMvcConfigurer {
         List list=new ArrayList();
         list.add("/");//返回login.jsp
         list.add("/login");//ajax登录请求路径
-        list.add("/error");//错误页面
-        list.add("/dist/**");//js，css静态资源
-        list.add("/imges/**");//图片资源
-        list.add("/*.html");//其他错误页面
+        //js，css静态资源  图片资源
+        list.add("/dist/**");
+        list.add("/imges/**");
+
+        list.add("/error");//未登录提示页面
+        list.add("/404");//找不到提示页面
 
         registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns(list);
@@ -35,7 +37,7 @@ public class WebMvcConf implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("/login");//返回login.jsp
         registry.addViewController("/index").setViewName("/index");//用户主界面index.jsp
-        registry.addViewController("/404.html").setViewName("404");//错误提示页面error.jsp
+        registry.addViewController("/404").setViewName("404");//错误提示页面error.jsp
     }
 
 
