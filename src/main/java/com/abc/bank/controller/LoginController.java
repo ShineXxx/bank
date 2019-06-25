@@ -1,4 +1,4 @@
-package com.abc.bank.controller.user;
+package com.abc.bank.controller;
 
 import com.abc.bank.pojo.CardInfo;
 import com.abc.bank.service.CardInfoService;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import javax.smartcardio.Card;
 import javax.validation.constraints.NotNull;
 
+//登陆控制器
 @Controller
 public class LoginController {
     @Autowired
@@ -23,7 +24,7 @@ public class LoginController {
 
     @ResponseBody
     @RequestMapping("/login")
-    public JSONObject login(@RequestParam("username") @NotNull String username, @RequestParam("password") @NotNull String password, HttpServletRequest request, HttpSession session) {
+    public JSONObject login(@RequestParam("username") @NotNull String username, @RequestParam("password") @NotNull String password, HttpServletRequest request) {
         //构建json对象
         JSONObject result = new JSONObject();
         //username合法判断
@@ -39,7 +40,7 @@ public class LoginController {
         //判断合法
         if (username.matches(userReg) && password.matches(passReg)) {
             //数据库判断用户密码
-            CardInfo cardInfo = cardInfoService.getPssword(username);
+            CardInfo cardInfo = cardInfoService.getCardInfo(username);
             if (cardInfo == null) {
                 result.put("state", "failed");
                 result.put("msg", "用户名不存在");
@@ -50,7 +51,8 @@ public class LoginController {
                     result.put("state", "success");
                     result.put("address", "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/index");
                     //添加session
-                    session.setAttribute("user", username);
+                    HttpSession session =request.getSession();
+                    session.setAttribute("cardinfo", cardInfo);
                 } else {
                     //密码错误
                     result.put("state", "failed");

@@ -47,7 +47,7 @@
                     }
                 },
                 error: function () {
-                    alert("出错了，gun去告诉客服 ");
+                    alert("出错了");
                 }
             });
             return false;
@@ -97,14 +97,14 @@
                             <input type="password" class="form-control" id="password" placeholder="Password">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="radio-inline">
-                            <input type="radio" name="gender" value="0"> 男
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="gender" value="1"> 女
-                        </label>
-                    </div>
+                    <%--<div class="form-group">--%>
+                        <%--<label class="radio-inline">--%>
+                            <%--<input type="radio" name="gender" value="0"> 男--%>
+                        <%--</label>--%>
+                        <%--<label class="radio-inline">--%>
+                            <%--<input type="radio" name="gender" value="1"> 女--%>
+                        <%--</label>--%>
+                    <%--</div>--%>
                 </form>
             </div>
             <div class="modal-footer">

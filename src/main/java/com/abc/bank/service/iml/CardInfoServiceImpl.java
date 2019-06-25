@@ -11,8 +11,11 @@ public class CardInfoServiceImpl implements CardInfoService {
     @Autowired
     CardInfoMapper cardInfoMapper;
 
-    public CardInfo getPssword(String username){
+
+    @Override
+    public CardInfo getCardInfo(String username) {
         CardInfo cardInfo=cardInfoMapper.selectByPrimaryKey(username);
         return cardInfo;
     }
+
 }
