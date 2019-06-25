@@ -80,28 +80,5 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <li><a href="/pagenum?pn=${pageInfo.navigateFirstPage}">FirstPage</a></li>
-            <li>
-                <a href="/pagenum?pn=${pageInfo.prePage}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <c:forEach items="${pageInfo.navigatepageNums}" var="num">
-                <li <c:if test="${pageInfo.pageNum==num}"> class="active"</c:if>>
-                    <a href="/pagenum?pn=${num}">${num}</a>
-                </li>
-            </c:forEach>
-            <li>
-                <a href="/pagenum?pn=${pageInfo.nextPage}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-            <li><a href="/pagenum?pn=${pageInfo.navigateLastPage}">LastPage</a></li>
-        </ul>
-    </nav>
-</div>
 </body>
 </html>

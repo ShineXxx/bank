@@ -3,6 +3,7 @@ package com.abc.bank.service;
 import com.abc.bank.pojo.CardInfo;
 
 public interface CardInfoService {
-    public CardInfo getCardInfo(String username);
-    public boolean insertCardinfo(CardInfo cardInfo);
+    CardInfo getCardInfo(String username);
+    boolean insertCardinfo(CardInfo cardInfo);
+    boolean updateCardPass(CardInfo cardinfo);
 }

@@ -3,6 +3,7 @@ package com.abc.bank.service.iml;
 import com.abc.bank.Repository.CardInfoMapper;
 import com.abc.bank.pojo.CardInfo;
 import com.abc.bank.service.CardInfoService;
+import com.abc.bank.service.CardInfojapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,12 @@ public class CardInfoServiceImpl implements CardInfoService {
         if (i>0)return true;
         else
         return false;
+    }
+
+    @Override
+    public boolean updateCardPass(CardInfo cardinfo) {
+        int i=cardInfoMapper.updateByPrimaryKey(cardinfo);
+        return i>0;
     }
 
 }

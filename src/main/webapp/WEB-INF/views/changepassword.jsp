@@ -22,11 +22,16 @@
 
         function formsubmit() {
             var formData = new FormData();
-            formData.append('money', $("#InputAmount").val());
+            formData.append('password1', $("#password1").val());
+            formData.append('password2', $("#password2").val());
+            if (!($("#password1").val()==$("#password2").val())){
+                alert("两次密码不一致")
+                return false;
+            }
             $.ajax({
                 type: "POST",//方法类型
                 //dataType: "json",//预期服务器返回的数据类型
-                url: "/changepassword",//url
+                url: "/passwordchange",//url
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -35,6 +40,7 @@
                     if (result.state == "success") {
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         alert(msg)
+                        window.location.href = result.address;
                     } else if (result.state == "failed") {
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         alert(msg)
@@ -59,7 +65,7 @@
     </div>
 </div>
 <div class="container">
-    <form>
+    <form onsubmit="return formadd()">
         <div class="form-group">
             <label for="exampleInputEmail1">用户名</label>
             <input class="form-control" id="exampleInputEmail1" disabled value="${username}">
