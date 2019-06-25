@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 
-//登陆、退出 控制器
+//登陆、退出、注册 控制器
 @Controller
 public class LoginController {
     @Autowired
@@ -105,6 +105,14 @@ public class LoginController {
         String passReg = passwordJudge(cardInfo.getPassword(), jsonObject);
         //判断合法
         if (cardInfo.getId().matches(userReg) && cardInfo.getPassword().matches(passReg)) {
+            //判断用户名是否已存在
+            CardInfo cardInfo1 = cardInfoService.getCardInfo(cardInfo.getId());
+            if (cardInfo1!=null){
+                jsonObject.put("state","failed");
+                jsonObject.put("msg","卡号已存在");
+                return jsonObject;
+            }
+            //数据库插入卡信息
             boolean flag = cardInfoService.insertCardinfo(cardInfo);
             if (flag) {
                 jsonObject.put("state", "success");
