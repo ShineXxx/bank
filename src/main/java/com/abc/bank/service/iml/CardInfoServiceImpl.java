@@ -18,4 +18,12 @@ public class CardInfoServiceImpl implements CardInfoService {
         return cardInfo;
     }
 
+    @Override
+    public boolean insertCardinfo(CardInfo cardInfo) {
+        int i=cardInfoMapper.insert(cardInfo);
+        if (i>0)return true;
+        else
+        return false;
+    }
+
 }

@@ -52,6 +52,38 @@
             });
             return false;
         }
+
+        function signup() {
+            var formData = new FormData();
+            formData.append('username', $("#name").val());
+            formData.append('password', $("#pass").val());
+            formData.append('id', $("#kahao").val());
+            $.ajax({
+                type: "POST",//方法类型
+                //dataType: "json",//预期服务器返回的数据类型
+                url: "/signup",//url
+                data: formData,
+                processData: false,
+                contentType: false,
+                async: false,
+                success: function (result) {
+                    if (result.state == "success") {
+                        $("#myModal").modal("hide")
+                        var cont=typeof(result.msg)=="undefined"?"":result.msg+" "
+                        alert(cont)
+                    }else if (result.state=="failed"){
+                        var user=typeof(result.usercontent)=="undefined"?"":result.usercontent+" "
+                        var pass=typeof(result.passcontent)=="undefined"?"":result.passcontent+" "
+                        var cont=typeof(result.msg)=="undefined"?"":result.msg+" "
+                        $("#content1").html(user+pass+cont)
+                    }
+                },
+                error: function () {
+                    $("#myModal").modal("hide")
+                    alert("出错了");
+                }
+            });
+        }
     </script>
 </head>
 <body class="text-center">
@@ -83,33 +115,32 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel">用户注册</h4>
             </div>
+            <h4 style="color: #c9302c" id="content1"></h4>
             <div class="modal-body">
                 <form class="form-horizontal" id="form1">
                     <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">Name</label>
+                        <label for="name" class="col-sm-2 control-label">用户名</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="name" placeholder="Name">
+                            <input type="text" class="form-control" id="name" placeholder="Name">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="col-sm-2 control-label">Password</label>
+                        <label for="kahao" class="col-sm-2 control-label">卡号</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="password" placeholder="Password">
+                            <input type="text" class="form-control" id="kahao" placeholder="cardid">
                         </div>
                     </div>
-                    <%--<div class="form-group">--%>
-                        <%--<label class="radio-inline">--%>
-                            <%--<input type="radio" name="gender" value="0"> 男--%>
-                        <%--</label>--%>
-                        <%--<label class="radio-inline">--%>
-                            <%--<input type="radio" name="gender" value="1"> 女--%>
-                        <%--</label>--%>
-                    <%--</div>--%>
+                    <div class="form-group">
+                        <label for="pass" class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="pass" placeholder="Password">
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="formadd()">Sign Up</button>
+                <button type="button" class="btn btn-primary" onclick="signup()">Sign Up</button>
             </div>
         </div>
     </div>

@@ -19,6 +19,7 @@
             formsubmit()
             return false;
         }
+
         function formsubmit() {
             var formData = new FormData();
             formData.append('money', $("#InputAmount").val());
@@ -32,12 +33,12 @@
                 async: false,
                 success: function (result) {
                     if (result.state == "success") {
-                        var msg=typeof(result.msg)=="undefined"?"":result.msg+" "
+                        var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         alert(msg)
-                    }else if (result.state=="failed"){
-                        var msg=typeof(result.msg)=="undefined"?"":result.msg+" "
+                    } else if (result.state == "failed") {
+                        var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         alert(msg)
-                    }else if (result.state=="error"){
+                    } else if (result.state == "error") {
                         window.location.href = result.address;
                     }
                 },
@@ -50,24 +51,30 @@
 </head>
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
-<div class="page-header col-md-6 col-md-offset-3">
-    <h4>修改密码:
-        <small>:</small>
-    </h4>
+<div class="container">
+    <div class="page-header col-md-6 col-md-offset-3">
+        <h4>修改密码:
+            <small>:</small>
+        </h4>
+    </div>
 </div>
 <div class="container">
     <form>
         <div class="form-group">
             <label for="exampleInputEmail1">用户名</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+            <input class="form-control" id="exampleInputEmail1" disabled value="${username}">
         </div>
         <div class="form-group">
-            <label for="InputPassword1">密码</label>
-            <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
+            <label for="kahao">卡号</label>
+            <input class="form-control" id="kahao" disabled value="${cardid}">
         </div>
         <div class="form-group">
-            <label for="InputPassword2">确认密码</label>
-            <input type="password" class="form-control" id="InputPassword2" placeholder="Password">
+            <label for="password1">密码</label>
+            <input type="password" class="form-control" id="password1" placeholder="输入密码">
+        </div>
+        <div class="form-group">
+            <label for="password2">确认密码</label>
+            <input type="password" class="form-control" id="password2" placeholder="再次确认">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>

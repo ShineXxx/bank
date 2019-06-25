@@ -17,8 +17,8 @@
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
 <div class="page-header col-md-6 col-md-offset-3">
-    <h4>总记录数:${pageInfo.total}
-        <small>当前页数:${pageInfo.pageNum} </small>
+    <h4>主页 :
+        <small>  操作 </small>
     </h4>
 </div>
 <div class="container">
@@ -43,7 +43,7 @@
         </div>
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="/imges/3.png" alt="...">
+                <img src="/imges/3.png" alt="..." >
                 <div class="caption">
                     <h3><a href="#">转账</a></h3>
                     <p>...</p>
@@ -53,7 +53,7 @@
 
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="/imges/4.png" alt="...">
+                <img src="/imges/4.png" alt="..." >
                 <div class="caption">
                     <h3><a href="#">兑换</a></h3>
                     <p>...</p>
@@ -62,7 +62,7 @@
         </div>
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="/imges/4.png" alt="...">
+                <img src="/imges/4.png" alt="..." >
                 <div class="caption">
                     <h3><a href="#">余额查询</a></h3>
                     <p>...</p>
@@ -71,7 +71,7 @@
         </div>
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="/imges/4.png" alt="...">
+                <img src="/imges/4.png" alt="..." >
                 <div class="caption">
                     <h3><a href="/changepassword.html">修改密码</a></h3>
                     <p>...</p>

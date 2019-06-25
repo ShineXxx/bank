@@ -43,8 +43,8 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into card_info (username, password)
-    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+    insert into card_info (username, password,id)
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.abc.bank.pojo.CardInfo">
     <!--
