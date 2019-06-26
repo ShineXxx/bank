@@ -1,7 +1,7 @@
 package com.abc.bank.controller;
 
-import com.abc.bank.pojo.CardInfo;
-import com.abc.bank.service.CardInfoService;
+import com.abc.bank.Repository.AccountMapper;
+import com.abc.bank.pojo.Account;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,15 +18,13 @@ import java.util.Map;
 @Controller
 public class ChangePassword {
     @Autowired
-    CardInfoService cardInfoService;
-
+    AccountMapper accountMapper;
     @RequestMapping("/changepassword.html")
     public String changePassword(HttpServletRequest request, Map map) {
         HttpSession session = request.getSession();
-        CardInfo cardinfo = (CardInfo) session.getAttribute("cardinfo");
-        if (cardinfo == null) return "404";
-        map.put("username", cardinfo.getUsername());
-        map.put("cardid", cardinfo.getId());
+        Account account = (Account) session.getAttribute("account");
+        if (account == null) return "404";
+        map.put("cardid", account.getCardID());
         return "/changepassword";
     }
 
@@ -43,9 +41,9 @@ public class ChangePassword {
         //密码合法性验证
         if (passValid(pass1, jsonObject)) return jsonObject;
 
-        CardInfo cardInfo = (CardInfo) request.getSession().getAttribute("cardinfo");
-        cardInfo.setPassword(pass1);
-        if (!cardInfoService.updateCardPass(cardInfo)) {
+      Account account = (Account) request.getSession().getAttribute("account");
+        account.setPassword(pass1);
+        if (!(accountMapper.updateEntity(account)>0)) {
             jsonObject.put("state", "failed");
             jsonObject.put("msg", "数据库出错");
         } else {

@@ -1,8 +1,12 @@
 package com.abc.bank.controller;
 
+import com.abc.bank.Repository.AccountMapper;
 import com.abc.bank.common.MoneyUtil;
+import com.abc.bank.pojo.Account;
 import com.abc.bank.pojo.CardInfo;
+import com.abc.bank.service.iml.AccountServiceImpl;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,30 +20,43 @@ import javax.validation.constraints.NotNull;
 //取款控制器
 @RestController
 public class WithdrawMoney {
+    @Autowired
+    AccountServiceImpl accountService;
+
     @RequestMapping("/withdrawmoney")
     public JSONObject withdrawMoney(@RequestParam @NotEmpty Long money, HttpServletRequest request){
         //构建json数据
         JSONObject jsonObject=jsonObject=new JSONObject();
         //获取服务端session保存的用户卡信息
-        CardInfo cardInfo= (CardInfo) request.getSession().getAttribute("cardinfo");
+        Account account= (Account) request.getSession().getAttribute("account");
         //判断用户是否登陆过
-//        if (getCardInfoFromSession(request, jsonObject, cardInfo)) return jsonObject;
+//        if (getCardInfoFromSession(request, jsonObject, account)) return jsonObject;
         //判断金额合法性
         if (validityOfamount(money, jsonObject)) return jsonObject;
         //数据库操作余额
-        return dbOper(money, jsonObject, cardInfo);
+        return dbOper(money, jsonObject, account);
     }
 
-    JSONObject dbOper(@NotEmpty @RequestParam Long money, JSONObject jsonObject, CardInfo cardInfo) {
-//        String cardid=cardInfo.getId();
+    JSONObject dbOper(@NotEmpty @RequestParam Long money, JSONObject jsonObject, Account account) {
+        if (account==null){
+            jsonObject.put("state","failed");
+            jsonObject.put("msg","未登录");
+            return jsonObject;
+        }
         //获取余额
-        Long balance=100L;
+        Long balance=Long.valueOf(accountService.getAccountByCardid(account).getAccountBalance());
         //余额充足逻辑，取款更新数据库
         if (money<=balance){
             //数据库减余额
-
-            jsonObject.put("state","success");
-            jsonObject.put("msg","操作成功");
+            account.setAccountBalance(Long.toString((balance-money)));
+            if (accountService.updateAccount(account)){
+                jsonObject.put("state","success");
+                jsonObject.put("msg","操作成功");
+                jsonObject.put("address","/index");
+            }else {
+                jsonObject.put("state","failed");
+                jsonObject.put("msg","数据库错误");
+            }
         }else
         {
             //余额不足逻辑，返回取款失败信息
@@ -60,8 +77,8 @@ public class WithdrawMoney {
         return false;
     }
 
-    boolean getCardInfoFromSession(HttpServletRequest request, JSONObject jsonObject,CardInfo cardInfo) {
-        if (cardInfo==null){
+    boolean getCardInfoFromSession(HttpServletRequest request, JSONObject jsonObject,Account account) {
+        if (account==null){
             jsonObject.put("state","failed");
             jsonObject.put("address","http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/404");
             return true;

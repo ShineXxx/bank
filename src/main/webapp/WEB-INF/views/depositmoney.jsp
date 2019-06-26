@@ -15,7 +15,7 @@
     <script src="/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#InputAmount").change(function(){
+            $("#InputAmount").change(function () {
                 $("#h3").html($("#InputAmount").val())
             });
         });
@@ -24,6 +24,7 @@
             $("#myModal").modal({backdrop: "static"});
             return false;
         }
+
         function formsubmit() {
             var formData = new FormData();
             formData.append('money', $("#InputAmount").val());
@@ -38,12 +39,13 @@
                 success: function (result) {
                     $("#myModal").modal("hide")
                     if (result.state == "success") {
-                        var msg=typeof(result.msg)=="undefined"?"":result.msg+" "
+                        var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
+                        window.location.href = result.address;
                         alert(msg)
-                    }else if (result.state=="failed"){
-                        var msg=typeof(result.msg)=="undefined"?"":result.msg+" "
+                    } else if (result.state == "failed") {
+                        var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         alert(msg)
-                    }else if (result.state=="error"){
+                    } else if (result.state == "error") {
                         window.location.href = result.address;
                     }
                 },
@@ -59,21 +61,29 @@
 <jsp:include page="nav.jsp"></jsp:include>
 <div class="page-header col-md-6 col-md-offset-3">
     <h4>存款：
-        <small>100整数 </small>
+        <small>100整数</small>
     </h4>
 </div>
 <div class="container">
     <form class="form-inline" onsubmit="return formadd()">
         <div class="form-group">
             <label class="sr-only" for="InputAmount">Amount (in dollars)</label>
-            <div class="input-group">
-                <div class="input-group-addon">$</div>
+            <div class="input-group input-group-lg">
+                <div class="input-group-addon">￥</div>
                 <input type="text" class="form-control" id="InputAmount" placeholder="Amount" required>
                 <div class="input-group-addon">.00</div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">存款</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div>
+            <button type="submit" class="btn btn-primary btn-large">存款</button>
+        </div>
+
     </form>
+
 </div>
 
 <!-- Modal -->
@@ -81,12 +91,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="myModalLabel">存款金额</h4>
             </div>
             <div class="modal-body">
                 <h3 id="h3"></h3>
-                ...
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

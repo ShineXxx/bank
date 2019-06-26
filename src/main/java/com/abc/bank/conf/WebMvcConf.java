@@ -41,6 +41,8 @@ public class WebMvcConf implements WebMvcConfigurer {
         registry.addViewController("/404").setViewName("404");//错误提示页面error.jsp
         registry.addViewController("/depositmoney.html").setViewName("/depositmoney");//*.jsp
         registry.addViewController("/withdrawmoney.html").setViewName("/withdrawmoney");
+        registry.addViewController("/transferaccounts.html").setViewName("/transferaccounts");
+//        registry.addViewController("/signup.html").setViewName("/signup");
 //        registry.addViewController("/changepassword.html").setViewName("/changepassword");
     }
 

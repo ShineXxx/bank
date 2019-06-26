@@ -15,7 +15,31 @@
     <script src="/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#InputAmount").change(function(){
+            $("#InputAmount").change(function () {
+                $("#h3").html($("#InputAmount").val())
+            });
+            $("#btn1").click(function () {
+                $("#InputAmount").val($("#btn1").html())
+                $("#h3").html($("#InputAmount").val())
+            });
+            $("#btn2").click(function () {
+                $("#InputAmount").val($("#btn2").html())
+                $("#h3").html($("#InputAmount").val())
+            });
+            $("#btn3").click(function () {
+                $("#InputAmount").val($("#btn3").html())
+                $("#h3").html($("#InputAmount").val())
+            });
+            $("#btn4").click(function () {
+                $("#InputAmount").val($("#btn4").html())
+                $("#h3").html($("#InputAmount").val())
+            });
+            $("#btn5").click(function () {
+                $("#InputAmount").val($("#btn5").html())
+                $("#h3").html($("#InputAmount").val())
+            });
+            $("#btn6").click(function () {
+                $("#InputAmount").val($("#btn6").html())
                 $("#h3").html($("#InputAmount").val())
             });
         });
@@ -38,6 +62,7 @@
                     $("#myModal").modal("hide")
                     if (result.state == "success") {
                         var msg=typeof(result.msg)=="undefined"?"":result.msg+" "
+                        window.location.href = result.address;
                         alert(msg)
                     }else if (result.state=="failed"){
                         var msg=typeof(result.msg)=="undefined"?"":result.msg+" "
@@ -62,17 +87,46 @@
     </h4>
 </div>
 <div class="container">
-    <form class="form-inline" onsubmit="return formadd()">
-        <div class="form-group">
-            <label class="sr-only" for="InputAmount">Amount (in dollars)</label>
-            <div class="input-group">
-                <div class="input-group-addon">$</div>
-                <input type="text" class="form-control" id="InputAmount" placeholder="Amount" required>
-                <div class="input-group-addon">.00</div>
+    <div class="row">
+        <div class="col-md-4">
+            <div>
+                <button class="btn btn-primary btn-large" id="btn1">100</button>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-large" id="btn2">300</button>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-large" id="btn3">500</button>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">取款</button>
-    </form>
+        <div class="col-md-4">
+            <form class="form-inline" onsubmit="return formadd()">
+                <div class="form-group">
+                    <label class="sr-only" for="InputAmount">Amount (in dollars)</label>
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-addon">￥</div>
+                        <input type="text" class="form-control" id="InputAmount" placeholder="Amount" required>
+                        <div class="input-group-addon">.00</div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-primaryk">取款</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <button class="btn btn-primary btn-large" id="btn4">800</button>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-large" id="btn5">1000</button>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-large" id="btn6">1500</button>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -84,7 +138,6 @@
             </div>
             <div class="modal-body">
                 <h3 id="h3"></h3>
-                ...
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

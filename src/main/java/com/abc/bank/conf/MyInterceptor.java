@@ -10,7 +10,7 @@ public class MyInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        if (request.getSession().getAttribute("cardinfo")!=null){
+        if (request.getSession().getAttribute("account")!=null){
             System.out.println("通过拦截"+request.getRequestURI());
             return true;
         }

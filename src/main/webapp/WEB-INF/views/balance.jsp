@@ -9,38 +9,38 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>修改密码</title>
+    <title>存款</title>
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="/dist/jquery-3.3.1.min.js"></script>
     <script src="/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
+        $(document).ready(function () {
+            $("#InputAmount").change(function () {
+                $("#h3").html($("#InputAmount").val())
+            });
+        });
 
         function formadd() {
-            formsubmit()
+            $("#myModal").modal({backdrop: "static"});
             return false;
         }
 
         function formsubmit() {
             var formData = new FormData();
-            formData.append('password1', $("#password1").val());
-            formData.append('password2', $("#password2").val());
-            if (!($("#password1").val()==$("#password2").val())){
-                alert("两次密码不一致")
-                return false;
-            }
+            formData.append('money', $("#InputAmount").val());
             $.ajax({
                 type: "POST",//方法类型
                 //dataType: "json",//预期服务器返回的数据类型
-                url: "/passwordchange",//url
+                url: "/depositmoney",//url
                 data: formData,
                 processData: false,
                 contentType: false,
                 async: false,
                 success: function (result) {
+                    $("#myModal").modal("hide")
                     if (result.state == "success") {
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         alert(msg)
-                        window.location.href = result.address;
                     } else if (result.state == "failed") {
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         alert(msg)
@@ -49,6 +49,7 @@
                     }
                 },
                 error: function () {
+                    $("#myModal").modal("hide")
                     alert("出错了");
                 }
             });
@@ -57,33 +58,16 @@
 </head>
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
-<div class="container">
-    <div class="page-header col-md-6 col-md-offset-3">
-        <h4>修改密码:
-            <small>:</small>
-        </h4>
-    </div>
+<div class="page-header col-md-6 col-md-offset-3">
+    <h4>余额查询：
+        <small> </small>
+    </h4>
 </div>
 <div class="container">
-    <form onsubmit="return formadd()">
-        <%--<div class="form-group">--%>
-            <%--<label for="exampleInputEmail1">用户名</label>--%>
-            <%--<input class="form-control" id="exampleInputEmail1" disabled value="${username}">--%>
-        <%--</div>--%>
-        <div class="form-group">
-            <label for="kahao">卡号</label>
-            <input class="form-control" id="kahao" disabled value="${cardid}">
-        </div>
-        <div class="form-group">
-            <label for="password1">密码</label>
-            <input type="password" class="form-control" required id="password1" placeholder="输入密码">
-        </div>
-        <div class="form-group">
-            <label for="password2">确认密码</label>
-            <input type="password" class="form-control" required id="password2" placeholder="再次确认">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-    </form>
+    <label for="yue">余额</label>
+    <input class="form-control" id="yue" disabled value="${yue}">
+    <label for="type">卡类型</label>
+    <input class="form-control" id="type" disabled value="${type}">
 </div>
 
 </body>

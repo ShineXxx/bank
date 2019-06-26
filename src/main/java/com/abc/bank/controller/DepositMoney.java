@@ -1,9 +1,15 @@
 package com.abc.bank.controller;
 
+import com.abc.bank.Repository.AccountMapper;
 import com.abc.bank.common.MoneyUtil;
+import com.abc.bank.pojo.Account;
+import com.abc.bank.pojo.Bill;
 import com.abc.bank.pojo.CardInfo;
+import com.abc.bank.service.iml.AccountServiceImpl;
+import com.abc.bank.service.iml.BillServiceImpl;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,17 +18,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 //存款控制器
 @RestController
 public class DepositMoney {
 
+    @Autowired
+    AccountServiceImpl accountService;
+    @Autowired
+    BillServiceImpl billService;
+
+
+    @Transactional
     @RequestMapping("/depositmoney")
     public JSONObject depositMoney(@RequestParam @NotEmpty Long money, HttpServletRequest request) {
         //构建json数据
         JSONObject jsonObject=new JSONObject();
         //用户卡信息
-        CardInfo cardInfo= (CardInfo) request.getSession().getAttribute("cardinfo");
+        Account account= (Account) request.getSession().getAttribute("account");
 
         //判断用户是否登陆过
 //        if (getCardInfoFromSession(request, jsonObject,cardInfo)) return jsonObject;
@@ -31,18 +45,38 @@ public class DepositMoney {
         if (validityOfamount(money, jsonObject)) return jsonObject;
 
         //数据库更新余额
-        return dbOper(money, jsonObject, cardInfo);
+        return dbOper(money, jsonObject, account,request);
     }
 
-    JSONObject dbOper(@NotEmpty @RequestParam Long money, JSONObject jsonObject, CardInfo cardInfo) {
+    JSONObject dbOper(@NotEmpty @RequestParam Long money, JSONObject jsonObject, Account account,HttpServletRequest request) {
 //        String cardid=cardInfo.getId();
-        Long balance = 100L;
-        //数据库更新余额
-        balance += money;
+        Long balance = Long.valueOf(account.getAccountBalance());
         //更新存款逻辑
-
-        jsonObject.put("state", "success");
-        jsonObject.put("msg", "存款成功");
+        if (account==null) {
+            jsonObject.put("state", "failed");
+            jsonObject.put("msg", "未登录");
+            return jsonObject;
+        }
+        //更新后金额
+        Long newmoney=balance+money;
+        account.setAccountBalance(newmoney.toString());
+        if (accountService.updateAccount(account)){
+            //添加账单纪录
+            Bill bill=new Bill();
+            bill.setCardID(account.getCardID());
+            bill.setAffairType("存入");
+            bill.setTradeBalance("+"+money.toString());
+            bill.setTradeTime(new Date().toString());
+            if (billService.insertBill(bill)){
+                jsonObject.put("state", "success");
+                jsonObject.put("msg", "存款成功");
+                jsonObject.put("address","/index");
+                return jsonObject;
+            }
+        }else {
+            jsonObject.put("state", "failed");
+            jsonObject.put("msg", "数据库错误");
+        }
         return jsonObject;
     }
 

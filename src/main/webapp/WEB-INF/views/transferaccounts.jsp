@@ -9,7 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>修改密码</title>
+    <title>转账</title>
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="/dist/jquery-3.3.1.min.js"></script>
     <script src="/dist/js/bootstrap.min.js"></script>
@@ -22,16 +22,13 @@
 
         function formsubmit() {
             var formData = new FormData();
-            formData.append('password1', $("#password1").val());
-            formData.append('password2', $("#password2").val());
-            if (!($("#password1").val()==$("#password2").val())){
-                alert("两次密码不一致")
-                return false;
-            }
+            formData.append('kahao', $("#kahao").val());
+            formData.append('jine', $("#jine").val());
+
             $.ajax({
                 type: "POST",//方法类型
                 //dataType: "json",//预期服务器返回的数据类型
-                url: "/passwordchange",//url
+                url: "/transferaccounts",//url
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -59,8 +56,8 @@
 <jsp:include page="nav.jsp"></jsp:include>
 <div class="container">
     <div class="page-header col-md-6 col-md-offset-3">
-        <h4>修改密码:
-            <small>:</small>
+        <h4>转账:
+            <small> </small>
         </h4>
     </div>
 </div>
@@ -72,17 +69,13 @@
         <%--</div>--%>
         <div class="form-group">
             <label for="kahao">卡号</label>
-            <input class="form-control" id="kahao" disabled value="${cardid}">
+            <input class="form-control" id="kahao" required placeholder="输入转账用户">
         </div>
         <div class="form-group">
-            <label for="password1">密码</label>
-            <input type="password" class="form-control" required id="password1" placeholder="输入密码">
+            <label for="jine">金额</label>
+            <input type="text" class="form-control" required id="jine" placeholder="输入转账金额">
         </div>
-        <div class="form-group">
-            <label for="password2">确认密码</label>
-            <input type="password" class="form-control" required id="password2" placeholder="再次确认">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">确认</button>
     </form>
 </div>
 

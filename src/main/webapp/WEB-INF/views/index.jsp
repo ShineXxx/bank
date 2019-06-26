@@ -25,56 +25,44 @@
     <div class="row">
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="/imges/1.png" width="160px" height="160px" alt="...">
                 <div class="caption">
                     <h3><a href="/depositmoney.html">存款</a></h3>
-                    <p>...</p>
                 </div>
             </div>
         </div>
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="/imges/2.png" alt="..." >
                 <div class="caption">
                     <h3><a href="/withdrawmoney.html">取款</a></h3>
-                    <p>...</p>
                 </div>
             </div>
         </div>
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="/imges/3.png" alt="..." >
                 <div class="caption">
-                    <h3><a href="#">转账</a></h3>
-                    <p>...</p>
+                    <h3><a href="/transferaccounts.html">转账</a></h3>
                 </div>
             </div>
         </div>
 
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="/imges/4.png" alt="..." >
                 <div class="caption">
                     <h3><a href="#">兑换</a></h3>
-                    <p>...</p>
                 </div>
             </div>
         </div>
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="/imges/4.png" alt="..." >
                 <div class="caption">
-                    <h3><a href="#">余额查询</a></h3>
-                    <p>...</p>
+                    <h3><a href="/balance.html">余额查询</a></h3>
                 </div>
             </div>
         </div>
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="/imges/4.png" alt="..." >
                 <div class="caption">
                     <h3><a href="/changepassword.html">修改密码</a></h3>
-                    <p>...</p>
                 </div>
             </div>
         </div>

@@ -3,7 +3,6 @@ package com.abc.bank.Repository;
 import com.abc.bank.pojo.CardInfo;
 import org.apache.ibatis.annotations.Mapper;
 
-
 @Mapper
 public interface CardInfoMapper {
     /**

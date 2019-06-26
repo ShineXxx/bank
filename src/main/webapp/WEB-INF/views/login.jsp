@@ -17,10 +17,18 @@
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="/dist/jquery-3.3.1.min.js"></script>
     <script src="/dist/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        body{
+            background:url('/imges/bg.jpg')  no-repeat center center;
+            background-size:100% 100%;
+            background-attachment:fixed;
+            background-color:#CCCCCC;
+        }
+    </style>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#adduser").click(function () {
-                $("#myModal").modal({backdrop: "static"});
+                window.location.href = "/signup.html";
             });
         });
 
@@ -39,11 +47,11 @@
                 success: function (result) {
                     if (result.state == "success") {
                         window.location.href = result.address;
-                    }else if (result.state=="failed"){
-                        var user=typeof(result.usercontent)=="undefined"?"":result.usercontent+" "
-                        var pass=typeof(result.passcontent)=="undefined"?"":result.passcontent+" "
-                        var cont=typeof(result.msg)=="undefined"?"":result.msg+" "
-                        $("#content").html(user+pass+cont)
+                    } else if (result.state == "failed") {
+                        var user = typeof(result.usercontent) == "undefined" ? "" : result.usercontent + " "
+                        var pass = typeof(result.passcontent) == "undefined" ? "" : result.passcontent + " "
+                        var cont = typeof(result.msg) == "undefined" ? "" : result.msg + " "
+                        $("#content").html(user + pass + cont)
                     }
                 },
                 error: function () {
@@ -55,9 +63,18 @@
 
         function signup() {
             var formData = new FormData();
-            formData.append('username', $("#name").val());
-            formData.append('password', $("#pass").val());
             formData.append('id', $("#kahao").val());
+            formData.append('pass', $("#pass").val());
+            formData.append('pass1', $("#pass1").val());
+            formData.append('name', $("#name").val());
+            formData.append('identify', $("#identify").val());
+            formData.append('phone', $("#phone").val());
+            formData.append('address', $("#address").val());
+            formData.append('type', $("#type option:selected").val());
+            if (!($("#pass").val()==$("#pass1").val())){
+                alert("两次密码不一致")
+                return false;
+            }
             $.ajax({
                 type: "POST",//方法类型
                 //dataType: "json",//预期服务器返回的数据类型
@@ -69,13 +86,13 @@
                 success: function (result) {
                     if (result.state == "success") {
                         $("#myModal").modal("hide")
-                        var cont=typeof(result.msg)=="undefined"?"":result.msg+" "
+                        var cont = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         alert(cont)
-                    }else if (result.state=="failed"){
-                        var user=typeof(result.usercontent)=="undefined"?"":result.usercontent+" "
-                        var pass=typeof(result.passcontent)=="undefined"?"":result.passcontent+" "
-                        var cont=typeof(result.msg)=="undefined"?"":result.msg+" "
-                        $("#content1").html(user+pass+cont)
+                    } else if (result.state == "failed") {
+                        var user = typeof(result.usercontent) == "undefined" ? "" : result.usercontent + " "
+                        var pass = typeof(result.passcontent) == "undefined" ? "" : result.passcontent + " "
+                        var cont = typeof(result.msg) == "undefined" ? "" : result.msg + " "
+                        $("#content1").html(user + pass + cont)
                     }
                 },
                 error: function () {
@@ -88,23 +105,46 @@
 </head>
 <body class="text-center">
 <div class="container">
-    <form class="form-signin" onsubmit="return formadd()" >
-        <img class="mb-4" src="/imges/bootstrap-social-logo.png" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <form class="form-signin" onsubmit="return formadd()">
         <h4 style="color: #c9302c" id="content"></h4>
-        <label for="inputUser" class="sr-only">Username</label>
-        <input name="name" type="text" id="inputUser" class="form-control" placeholder="Username" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
+        <div class="row">
+            <div class="col-md-21">
+                <label for="inputUser" class="sr-only">Username</label>
+                <input height="400px" name="name" type="text" id="inputUser" class="form-control" placeholder="Username"
+                       required
+                       autofocus>
+            </div>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" >Sign in</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
+        <div class="page-header col-md-6 col-md-offset-3">
+            <h4>
+            </h4>
+        </div>
+        <div class="row">
+            <div class="col-md-50">
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input height="400px" name="password" type="password" id="inputPassword" class="form-control"
+                       placeholder="Password"
+                       required>
+            </div>
+        </div>
+        <div class="page-header col-md-6 col-md-offset-3">
+            <h3>
+            </h3>
+        </div>
+        <div class="row">
+            <div class="col-md-16">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">登陆</button>
+            </div>
+            <div class="col-md-10">
+                <h4></h4>
+            </div>
+        </div>
     </form>
-    <button class="btn btn-default" id="adduser">注册</button>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <button class="btn btn-default btn-block" id="adduser">开户</button>
+        </div>
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -113,17 +153,11 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">用户注册</h4>
+                <h4 class="modal-title" id="myModalLabel">开户</h4>
             </div>
             <h4 style="color: #c9302c" id="content1"></h4>
             <div class="modal-body">
                 <form class="form-horizontal" id="form1">
-                    <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">用户名</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" placeholder="Name">
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label for="kahao" class="col-sm-2 control-label">卡号</label>
                         <div class="col-sm-10">
@@ -136,11 +170,51 @@
                             <input type="password" class="form-control" id="pass" placeholder="Password">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="pass1" class="col-sm-2 control-label">重复密码</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="pass1" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="identify" class="col-sm-2 control-label">身份证</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="identify" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-2 control-label">电话</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="phone" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-sm-2 control-label">地址</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="address" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="identify" class="col-sm-2 control-label">卡类型</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="type">
+                                <option value="0">借记卡</option>
+                                <option value="1">信用卡</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="signup()">Sign Up</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="signup()">确认</button>
             </div>
         </div>
     </div>
