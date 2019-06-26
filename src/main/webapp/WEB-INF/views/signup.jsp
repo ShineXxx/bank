@@ -19,7 +19,7 @@
     <script src="/dist/js/bootstrap.min.js"></script>
     <style type="text/css">
         body {
-            background: url('/imges/bg.jpg') no-repeat center center;
+            background: url('imges/background.png') no-repeat center center;
             background-size: 100% 100%;
             background-attachment: fixed;
             background-color: #CCCCCC;

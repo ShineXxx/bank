@@ -18,11 +18,11 @@
     <script src="/dist/jquery-3.3.1.min.js"></script>
     <script src="/dist/js/bootstrap.min.js"></script>
     <style type="text/css">
-        body{
-            background:url('/imges/bg.jpg')  no-repeat center center;
-            background-size:100% 100%;
-            background-attachment:fixed;
-            background-color:#CCCCCC;
+        body {
+            background: url('imges/background.png') no-repeat center center;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            background-color: #CCCCCC;
         }
     </style>
     <script type="text/javascript">
@@ -71,7 +71,7 @@
             formData.append('phone', $("#phone").val());
             formData.append('address', $("#address").val());
             formData.append('type', $("#type option:selected").val());
-            if (!($("#pass").val()==$("#pass1").val())){
+            if (!($("#pass").val() == $("#pass1").val())) {
                 alert("两次密码不一致")
                 return false;
             }
@@ -106,34 +106,30 @@
 <body class="text-center">
 <div class="container">
     <form class="form-signin" onsubmit="return formadd()">
-        <h4 style="color: #c9302c" id="content"></h4>
-        <div class="row">
-            <div class="col-md-21">
-                <label for="inputUser" class="sr-only">Username</label>
-                <input height="400px" name="name" type="text" id="inputUser" class="form-control" placeholder="Username"
-                       required
-                       autofocus>
-            </div>
-        </div>
-        <div class="page-header col-md-6 col-md-offset-3">
-            <h4>
-            </h4>
-        </div>
-        <div class="row">
-            <div class="col-md-50">
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input height="400px" name="password" type="password" id="inputPassword" class="form-control"
-                       placeholder="Password"
-                       required>
-            </div>
-        </div>
-        <div class="page-header col-md-6 col-md-offset-3">
-            <h3>
-            </h3>
-        </div>
         <div class="row">
             <div class="col-md-16">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">登陆</button>
+                <div class="page-header">
+                    <div class="input-group input-group-lg">
+                        <h4 style="color: #c9302c" id="content"></h4>
+                        <label for="inputUser" class="sr-only">用户名</label>
+                        <input height="400px" name="name" type="text" id="inputUser" class="form-control"
+                               placeholder="Username"
+                               required
+                               autofocus>
+                    </div>
+                </div>
+
+                <div class="page-header">
+                    <div class="input-group input-group-lg">
+                        <label for="inputPassword" class="sr-only">密码</label>
+                        <input height="400px" name="password" type="password" id="inputPassword" class="form-control"
+                               placeholder="Password"
+                               required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-16">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">确认</button>
             </div>
             <div class="col-md-10">
                 <h4></h4>

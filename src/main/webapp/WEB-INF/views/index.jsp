@@ -13,7 +13,16 @@
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="/dist/jquery-3.3.1.min.js"></script>
     <script src="/dist/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        body {
+            background: url('imges/background.png') no-repeat center center;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            background-color: #CCCCCC;
+        }
+    </style>
 </head>
+
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
 <div class="page-header col-md-6 col-md-offset-3">
