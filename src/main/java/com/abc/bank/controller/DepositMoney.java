@@ -1,6 +1,7 @@
 package com.abc.bank.controller;
 
 import com.abc.bank.Repository.AccountMapper;
+import com.abc.bank.common.DateconversionUtil;
 import com.abc.bank.common.MoneyUtil;
 import com.abc.bank.pojo.Account;
 import com.abc.bank.pojo.Bill;
@@ -62,13 +63,12 @@ public class DepositMoney {
         Long newmoney=balance+money;
         account.setAccountBalance(newmoney.toString());
         if (accountService.updateAccount(account)){
-            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-mm-dd");
             //添加账单纪录
             Bill bill=new Bill();
             bill.setCardID(account.getCardID());
             bill.setAffairType("存入");
             bill.setTradeBalance("+"+money.toString());
-            bill.setTradeTime(simpleDateFormat.format(new Date()).toString());
+            bill.setTradeTime(DateconversionUtil.dateConversion(new Date(),"yyyy-mm-dd HH:mm:ss"));
             if (billService.insertBill(bill)){
                 jsonObject.put("state", "success");
                 jsonObject.put("msg", "存款成功");

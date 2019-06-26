@@ -2,8 +2,11 @@ package com.abc.bank.controller;
 
 import com.abc.bank.Repository.AccountMapper;
 import com.abc.bank.Repository.UsersMapper;
+import com.abc.bank.common.RandomNumberUtil;
 import com.abc.bank.pojo.Account;
 import com.abc.bank.pojo.Users;
+import com.abc.bank.service.iml.AccountServiceImpl;
+import com.abc.bank.service.iml.UserServiceImpl;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.util.DateUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,9 +27,9 @@ import java.util.Random;
 @Controller
 public class LoginController {
     @Autowired
-    UsersMapper usersMapper;
+    AccountServiceImpl accountService;
     @Autowired
-    AccountMapper accountMapper;
+    UserServiceImpl userService;
 
     @ResponseBody
     @RequestMapping("/login")
@@ -42,7 +46,7 @@ public class LoginController {
         if (cardid.matches(userReg) && password.matches(passReg)) {
             //数据库判断用户密码
 //            CardInfo cardInfo = cardInfoService.getCardInfo(cardid);
-            Account account=accountMapper.selectByPrimaryKey(cardid);
+            Account account=accountService.getAccountByCardid(cardid);
             if (account == null) {
                 result.put("state", "failed");
                 result.put("msg", "用户名不存在");
@@ -115,7 +119,8 @@ public class LoginController {
                              @NotNull @RequestParam("identify") String identify,
                              @NotNull @RequestParam("phone") String phone,
                              @NotNull @RequestParam("address") String address,
-                             @NotNull @RequestParam("type") String cardtype) {
+                             @NotNull @RequestParam("type") String cardtype,
+                             HttpServletRequest request) {
 
         //构建json对象
         JSONObject jsonObject = new JSONObject();
@@ -137,12 +142,11 @@ public class LoginController {
         account.setCreditLimit("0");
         account.setEffectiveDate(new Date());
         //查看用户是否已经存在
-        Users users=usersMapper.selectByPrimaryKey(identify);
+        Users users=userService.getUserByIdentify(identify);
         //已存在
         if (users!=null) {
-            //插入数据库
-           int i= accountMapper.insert(account);
-           if (i>0){
+            //数据库插入用户的新卡
+           if (accountService.createAccount(account)){
                jsonObject.put("state","success");
                jsonObject.put("msg","新卡注册成功");
            }
@@ -156,68 +160,35 @@ public class LoginController {
         users.setTelNum(phone);
         users.setUsername(username);
         //数据库插入新用户
-        int i=usersMapper.insert(users);
-        if (i<=0){
+        if (!userService.insertUser(users)){
             jsonObject.put("state","failed");
             jsonObject.put("msg","创建用户数据库错误");
             return jsonObject;
         }
         //判断卡号是否已存在
         //？？？
-        //数据库插入新用户新卡
-        int j=accountMapper.insert(account);
-        if (j<=0){
+        //数据库插入新用户的新卡
+        if (!accountService.createAccount(account)){
             jsonObject.put("state","failed");
             jsonObject.put("msg","创建用户卡数据库错误");
             return jsonObject;
         }
         jsonObject.put("state","success");
         jsonObject.put("msg","创建新卡、新用户成功");
-
-//        CardInfo cardInfo=null;
-//
-//        //判断合法
-//        if (cardInfo.getId().matches(userReg) && cardInfo.getPassword().matches(passReg)) {
-//            //判断用户名是否已存在
-//            CardInfo cardInfo1 = cardInfoService.getCardInfo(cardInfo.getId());
-//            if (cardInfo1!=null){
-//                jsonObject.put("state","failed");
-//                jsonObject.put("msg","卡号已存在");
-//                return jsonObject;
-//            }
-//            //数据库插入卡信息
-//            boolean flag = cardInfoService.insertCardinfo(cardInfo);
-//            if (flag) {
-//                jsonObject.put("state", "success");
-//                jsonObject.put("msg", "注册成功");
-//            } else {
-//                jsonObject.put("state", "failed");
-//                jsonObject.put("msg", "数据库出错了");
-//            }
-//        }else {
-//            jsonObject.put("state", "failed");
-//        }
+        request.getSession().setAttribute("account",account);
+        jsonObject.put("address","/index");
         return jsonObject;
     }
 
     @RequestMapping("/signup.html")
-    public String changePassword(HttpServletRequest request, Map map) {
+    public String signUpPage(HttpServletRequest request, Map map) {
         String prex="9960001011";
-        Random dom=new Random();
-        int random=dom.nextInt(999999);
-        if (random<100000){
-            random+=100000;
-        }
-        String newcardid=prex+Integer.valueOf(random).toString();
-        Account account=accountMapper.selectByPrimaryKey(newcardid);
-        while(account!=null){
-            random=dom.nextInt(999999);
-            if (random<100000){
-                random+=100000;
-            }
-            newcardid=prex+Integer.valueOf(random).toString();
-            account=accountMapper.selectByPrimaryKey(newcardid);
-        }
+        String newcardid=null;
+        Account account=null;
+        do{
+            newcardid=RandomNumberUtil.generationNumber(prex,999999);
+            account=accountService.getAccountByCardid(newcardid);
+        }while(account!=null);
         map.put("cardid", newcardid);
         return "/signup";
     }

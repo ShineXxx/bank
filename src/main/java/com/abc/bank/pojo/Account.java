@@ -247,4 +247,17 @@ public class Account implements Serializable {
     public void setEffectiveDate(Date effectiveDate) {
         this.effectiveDate = effectiveDate;
     }
+
+    public Account() {
+    }
+
+    public Account(String cardID, String accountBalance, String identify, String password, String type, String creditLimit, Date effectiveDate) {
+        this.cardID = cardID;
+        this.accountBalance = accountBalance;
+        this.identify = identify;
+        this.password = password;
+        this.type = type;
+        this.creditLimit = creditLimit;
+        this.effectiveDate = effectiveDate;
+    }
 }

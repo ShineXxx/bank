@@ -59,6 +59,7 @@
                         $("#myModal").modal("hide")
                         var cont = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         alert(cont)
+                        window.location.href =result.address
                     } else if (result.state == "failed") {
                         var user = typeof(result.usercontent) == "undefined" ? "" : result.usercontent + " "
                         var pass = typeof(result.passcontent) == "undefined" ? "" : result.passcontent + " "

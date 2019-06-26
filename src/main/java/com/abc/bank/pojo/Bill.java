@@ -147,4 +147,14 @@ public class Bill implements Serializable {
     public void setTradeBalance(String tradeBalance) {
         this.tradeBalance = tradeBalance;
     }
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "cardID='" + cardID + '\'' +
+                ", affairType='" + affairType + '\'' +
+                ", tradeTime='" + tradeTime + '\'' +
+                ", tradeBalance='" + tradeBalance + '\'' +
+                '}';
+    }
 }

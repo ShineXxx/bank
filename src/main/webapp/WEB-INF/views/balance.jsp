@@ -18,6 +18,9 @@
             $("#InputAmount").change(function () {
                 $("#h3").html($("#InputAmount").val())
             });
+            $("#btn").click(function () {
+                window.location.href = "/getbills.html";
+            })
         });
 
         function formadd() {
@@ -60,14 +63,24 @@
 <jsp:include page="nav.jsp"></jsp:include>
 <div class="page-header col-md-6 col-md-offset-3">
     <h4>余额查询：
-        <small> </small>
+        <small></small>
     </h4>
 </div>
 <div class="container">
-    <label for="yue">余额</label>
-    <input class="form-control" id="yue" disabled value="${yue}">
-    <label for="type">卡类型</label>
-    <input class="form-control" id="type" disabled value="${type}">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <label for="yue">余额</label>
+            <input class="form-control" id="yue" disabled value="${yue}">
+            <label for="type">卡类型</label>
+            <input class="form-control" id="type" disabled value="${type}">
+            <br>
+            <br>
+            <br>
+            <div>
+                <button class="btn btn-primary btn-large" id="btn">查看账单</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
