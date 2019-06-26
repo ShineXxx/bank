@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 //存款控制器
@@ -61,12 +62,13 @@ public class DepositMoney {
         Long newmoney=balance+money;
         account.setAccountBalance(newmoney.toString());
         if (accountService.updateAccount(account)){
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-mm-dd");
             //添加账单纪录
             Bill bill=new Bill();
             bill.setCardID(account.getCardID());
             bill.setAffairType("存入");
             bill.setTradeBalance("+"+money.toString());
-            bill.setTradeTime(new Date().toString());
+            bill.setTradeTime(simpleDateFormat.format(new Date()).toString());
             if (billService.insertBill(bill)){
                 jsonObject.put("state", "success");
                 jsonObject.put("msg", "存款成功");
