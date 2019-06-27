@@ -1,7 +1,5 @@
 package com.abc.bank.controller;
 
-import com.abc.bank.Repository.AccountMapper;
-import com.abc.bank.Repository.UsersMapper;
 import com.abc.bank.common.RandomNumberUtil;
 import com.abc.bank.pojo.Account;
 import com.abc.bank.pojo.Users;
@@ -14,14 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.thymeleaf.util.DateUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Map;
-import java.util.Random;
+
+/**
+ * @Author 982933616
+ * @create 2019/6/27 9:02
+ */
 
 //登陆、退出、注册 控制器
 @Controller
@@ -45,7 +46,6 @@ public class LoginController {
         //判断合法
         if (cardid.matches(userReg) && password.matches(passReg)) {
             //数据库判断用户密码
-//            CardInfo cardInfo = cardInfoService.getCardInfo(cardid);
             Account account=accountService.getAccountByCardid(cardid);
             if (account == null) {
                 result.put("state", "failed");

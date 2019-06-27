@@ -1,8 +1,11 @@
-package com.abc.bank.Repository;
+package com.abc.bank.repository;
 
 import com.abc.bank.pojo.Users;
 import org.apache.ibatis.annotations.Mapper;
-
+/**
+ * @Author 982933616
+ * @create 2019/6/27 9:02
+ */
 @Mapper
 public interface UsersMapper {
     /**
@@ -10,6 +13,11 @@ public interface UsersMapper {
      * This method corresponds to the database table users
      *
      * @mbg.generated
+     */
+    /**
+     * 根据身份证号删除用户
+     * @param identify
+     * @return
      */
     int deleteByPrimaryKey(String identify);
 
@@ -19,6 +27,11 @@ public interface UsersMapper {
      *
      * @mbg.generated
      */
+    /**
+     * 插入新用户
+     * @param record
+     * @return
+     */
     int insert(Users record);
 
     /**
@@ -26,6 +39,11 @@ public interface UsersMapper {
      * This method corresponds to the database table users
      *
      * @mbg.generated
+     */
+    /**
+     * 插入
+     * @param record
+     * @return
      */
     int insertSelective(Users record);
 
@@ -35,6 +53,11 @@ public interface UsersMapper {
      *
      * @mbg.generated
      */
+    /**
+     * 根据身份证号查找用户
+     * @param identify
+     * @return
+     */
     Users selectByPrimaryKey(String identify);
 
     /**
@@ -43,6 +66,11 @@ public interface UsersMapper {
      *
      * @mbg.generated
      */
+    /**
+     * 更新
+     * @param record
+     * @return
+     */
     int updateByPrimaryKeySelective(Users record);
 
     /**
@@ -50,6 +78,11 @@ public interface UsersMapper {
      * This method corresponds to the database table users
      *
      * @mbg.generated
+     */
+    /**
+     * 更新用户信息
+     * @param record
+     * @return
      */
     int updateByPrimaryKey(Users record);
 }

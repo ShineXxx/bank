@@ -1,8 +1,11 @@
-package com.abc.bank.Repository;
+package com.abc.bank.repository;
 
 import com.abc.bank.pojo.Account;
 import org.apache.ibatis.annotations.Mapper;
-
+/**
+ * @Author 982933616
+ * @create 2019/6/27 9:02
+ */
 @Mapper
 public interface AccountMapper {
     /**
@@ -11,9 +14,20 @@ public interface AccountMapper {
      *
      * @mbg.generated
      */
+    /**
+     *
+     * 插入新用户的卡信息
+     * @param record
+     * @return
+     */
     int insert(Account record);
 
-    //主键查找卡
+
+    /**
+     * 主键查找卡
+     * @param cardId
+     * @return
+     */
     Account selectByPrimaryKey(String cardId);
 
     /**
@@ -22,8 +36,17 @@ public interface AccountMapper {
      *
      * @mbg.generated
      */
+    /**
+     * 插入
+     * @param record
+     * @return
+     */
     int insertSelective(Account record);
 
-    //更新账户密码
+    /**
+     * 更新账户密码
+     * @param account
+     * @return
+     */
     int updateEntity(Account account);
 }

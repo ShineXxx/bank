@@ -26,7 +26,7 @@ server:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 mybatis:
   mapper-locations: classpath:**/*Mapper.xml
-  type-aliases-package: com.abc.bank.Repository
+  type-aliases-package: com.abc.bank.repository
 spring:
   banner:
     charset: utf-8

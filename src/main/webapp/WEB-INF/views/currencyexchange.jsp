@@ -9,15 +9,21 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>取款</title>
+    <title>货币兑换</title>
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="/dist/jquery-3.3.1.min.js"></script>
     <script src="/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            //输入框改变事件
             $("#InputAmount").change(function () {
                 $("#h3").html($("#InputAmount").val())
             });
+            //货币类型改变事件
+            $("#currencytype").change(function () {
+                $("#fuhao").html($("#currencytype option:selected").val())
+            });
+            //更新输入框值
             $("#btn1").click(function () {
                 $("#InputAmount").val(100)
                 $("#h3").html($("#InputAmount").val())
@@ -44,6 +50,8 @@
             });
         });
 
+
+        //表单提交
         function formadd() {
             $("#myModal").modal({backdrop: "static"});
             return false;
@@ -52,10 +60,11 @@
         function formsubmit() {
             var formData = new FormData();
             formData.append('money', $("#InputAmount").val());
+            formData.append('currencytype', $("#fuhao").html());
             $.ajax({
                 type: "POST",//方法类型
                 //dataType: "json",//预期服务器返回的数据类型
-                url: "/withdrawmoney",//url
+                url: "/currencyexchange",//url
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -84,7 +93,7 @@
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
 <div class="page-header col-md-6 col-md-offset-3">
-    <h2 class="alert alert-info">取款:   (50的整数倍)
+    <h2 class="alert alert-info">兑换页面
         <%--<span class="label label-default"></span>--%>
     </h2>
 </div>
@@ -131,15 +140,28 @@
                     <div class="form-group">
                         <label class="sr-only" for="InputAmount">Money (in dollars)</label>
                         <div class="input-group input-group-lg">
-                            <div class="input-group-addon">￥</div>
+                            <div id="fuhao" class="input-group-addon">¤</div>
                             <input type="text" class="form-control" id="InputAmount" placeholder="Amount" required>
                             <div class="input-group-addon">.00</div>
                         </div>
                     </div>
                     <br>
                     <br>
+                    <div class="form-group">
+                        <div class="input-group input-group-lg">
+                            <label class="alert alert-success" for="InputAmount">要兑换的货币类型</label>
+                            <select id="currencytype" class="form-control">
+                                <option value="$">美元</option>
+                                <option value="£">英镑</option>
+                                <option value="€">欧元</option>
+                                <option value="¥">日元</option>
+                                <option value="Br">卢布</option>
+                            </select>
+                        </div>
+                    </div>
                     <br>
-                    <button type="submit" class="btn btn-default btn-lg btn-block">取款</button>
+                    <br>
+                    <button type="submit" class="btn btn-default btn-lg btn-block">确认兑换</button>
                 </form>
             </div>
         </div>
@@ -187,13 +209,13 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">确认取款金额</h4>
+                    <h4 class="modal-title" id="myModalLabel">确认兑换金额</h4>
                 </div>
                 <div class="modal-body">
                     <h3 id="h3"></h3>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary" onclick="formsubmit()">确认</button>
                 </div>
             </div>

@@ -1,5 +1,8 @@
-package com.abc.bank.Repository;
-
+package com.abc.bank.repository;
+/**
+ * @Author 982933616
+ * @create 2019/6/27 9:02
+ */
 import com.abc.bank.pojo.AccountCurrency;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,6 +14,12 @@ public interface AccountCurrencyMapper {
      *
      * @mbg.generated
      */
+    /**
+     * 插入新货币金额
+     *
+     * @param record
+     * @return
+     */
     int insert(AccountCurrency record);
 
     /**
@@ -18,6 +27,12 @@ public interface AccountCurrencyMapper {
      * This method corresponds to the database table account_currency
      *
      * @mbg.generated
+     */
+    /**
+     * insertselective
+     *
+     * @param record
+     * @return
      */
     int insertSelective(AccountCurrency record);
 }

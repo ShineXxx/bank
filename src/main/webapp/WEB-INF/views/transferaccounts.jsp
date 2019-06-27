@@ -16,7 +16,9 @@
     <script type="text/javascript">
 
         function formadd() {
-            formsubmit()
+            if (confirm("确认转账金额" + $("#jine").val() + "?")) {
+                formsubmit()
+            }
             return false;
         }
 
@@ -56,27 +58,33 @@
 <jsp:include page="nav.jsp"></jsp:include>
 <div class="container">
     <div class="page-header col-md-6 col-md-offset-3">
-        <h4>转账:
-            <small> </small>
-        </h4>
+        <h2 class="alert alert-info">转账:
+            <span class="label label-default">操作</span>
+        </h2>
     </div>
 </div>
 <div class="container">
-    <form onsubmit="return formadd()">
-        <%--<div class="form-group">--%>
-            <%--<label for="exampleInputEmail1">用户名</label>--%>
-            <%--<input class="form-control" id="exampleInputEmail1" disabled value="${username}">--%>
-        <%--</div>--%>
-        <div class="form-group">
-            <label for="kahao">卡号</label>
-            <input class="form-control" id="kahao" required placeholder="输入转账用户">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="jumbotron">
+                <form onsubmit="return formadd()">
+                    <%--<div class="form-group">--%>
+                    <%--<label for="exampleInputEmail1">用户名</label>--%>
+                    <%--<input class="form-control" id="exampleInputEmail1" disabled value="${username}">--%>
+                    <%--</div>--%>
+                    <div class="form-group">
+                        <label for="kahao">卡号</label>
+                        <input class="form-control" id="kahao" required placeholder="输入转账用户">
+                    </div>
+                    <div class="form-group">
+                        <label for="jine">金额</label>
+                        <input type="text" class="form-control" required id="jine" placeholder="输入转账金额">
+                    </div>
+                    <button type="submit" class="btn btn-default">确认</button>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="jine">金额</label>
-            <input type="text" class="form-control" required id="jine" placeholder="输入转账金额">
-        </div>
-        <button type="submit" class="btn btn-default">确认</button>
-    </form>
+    </div>
 </div>
 
 </body>

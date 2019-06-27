@@ -62,22 +62,25 @@
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
 <div class="page-header col-md-6 col-md-offset-3">
-    <h4>余额查询：
-        <small></small>
-    </h4>
+    <h2 class="alert alert-info">余额查询：
+        <span class="label label-default">操作</span>
+    </h2>
 </div>
 <div class="container">
+
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <label for="yue">余额</label>
-            <input class="form-control" id="yue" disabled value="${yue}">
-            <label for="type">卡类型</label>
-            <input class="form-control" id="type" disabled value="${type}">
-            <br>
-            <br>
-            <br>
-            <div>
-                <button class="btn btn-primary btn-large" id="btn">查看账单</button>
+            <div class="jumbotron">
+                <label for="yue">余额</label>
+                <input class="form-control" id="yue" disabled value="${yue}">
+                <label for="type">卡类型</label>
+                <input class="form-control" id="type" disabled value="${type}">
+                <br>
+                <br>
+                <br>
+                <div>
+                    <button class="btn btn-primary btn-large" id="btn">查看账单</button>
+                </div>
             </div>
         </div>
     </div>

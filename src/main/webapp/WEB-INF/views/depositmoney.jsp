@@ -60,29 +60,35 @@
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
 <div class="page-header col-md-6 col-md-offset-3">
-    <h4>存款：
-        <small>100整数</small>
-    </h4>
+    <h2 class="alert alert-info">存款：
+        <span class="label label-default">100的整数倍</span>
+    </h2>
 </div>
 <div class="container">
-    <form class="form-inline" onsubmit="return formadd()">
-        <div class="form-group">
-            <label class="sr-only" for="InputAmount">Amount (in dollars)</label>
-            <div class="input-group input-group-lg">
-                <div class="input-group-addon">￥</div>
-                <input type="text" class="form-control" id="InputAmount" placeholder="Amount" required>
-                <div class="input-group-addon">.00</div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="jumbotron">
+                <form class="form-inline" onsubmit="return formadd()">
+                    <div class="form-group">
+                        <label class="sr-only" for="InputAmount">Amount (in dollars)</label>
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-addon">￥</div>
+                            <input type="text" class="form-control" id="InputAmount" placeholder="Amount" required>
+                            <div class="input-group-addon">.00</div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div>
+                        <button class="btn btn-primary btn-lg btn-block">存款</button>
+                    </div>
+
+                </form>
             </div>
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div>
-            <button type="submit" class="btn btn-primary btn-large">存款</button>
-        </div>
-
-    </form>
+    </div>
 
 </div>
 

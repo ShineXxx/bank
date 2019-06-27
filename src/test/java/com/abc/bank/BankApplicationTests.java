@@ -1,16 +1,13 @@
 package com.abc.bank;
 
-import com.abc.bank.Repository.BillMapper;
-import com.abc.bank.Repository.UsersMapper;
-import com.abc.bank.pojo.CardInfo;
+import com.abc.bank.repository.BillMapper;
+import com.abc.bank.repository.UsersMapper;
 import com.abc.bank.pojo.Users;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,16 +23,6 @@ public class BankApplicationTests {
 		new String(a.toCharArray(),0,a.length());
 		System.out.println(a.intern() == a);
 	}
-//	@Autowired
-//    CardInfojapService cardInfojapService;
-//	@Test
-//	public void t1() {
-//        CardInfo cardInfo = new CardInfo();
-//        cardInfo.setId("123456");
-//        cardInfo.setPassword("123456");
-//        cardInfo.setUsername("123456");
-//        cardInfojapService.save(cardInfo);
-//	}
 	@Autowired
 	BillMapper billMapper;
 	@Autowired

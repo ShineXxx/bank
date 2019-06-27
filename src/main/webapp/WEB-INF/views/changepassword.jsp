@@ -24,7 +24,7 @@
             var formData = new FormData();
             formData.append('password1', $("#password1").val());
             formData.append('password2', $("#password2").val());
-            if (!($("#password1").val()==$("#password2").val())){
+            if (!($("#password1").val() == $("#password2").val())) {
                 alert("两次密码不一致")
                 return false;
             }
@@ -59,31 +59,37 @@
 <jsp:include page="nav.jsp"></jsp:include>
 <div class="container">
     <div class="page-header col-md-6 col-md-offset-3">
-        <h4>修改密码:
-            <small>:</small>
-        </h4>
+        <h2 class="alert alert-warning">修改密码:
+            <span class="label label-default">操作</span>
+        </h2>
     </div>
 </div>
 <div class="container">
-    <form onsubmit="return formadd()">
-        <%--<div class="form-group">--%>
-            <%--<label for="exampleInputEmail1">用户名</label>--%>
-            <%--<input class="form-control" id="exampleInputEmail1" disabled value="${username}">--%>
-        <%--</div>--%>
-        <div class="form-group">
-            <label for="kahao">卡号</label>
-            <input class="form-control" id="kahao" disabled value="${cardid}">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="jumbotron">
+                <form onsubmit="return formadd()">
+                    <%--<div class="form-group">--%>
+                    <%--<label for="exampleInputEmail1">用户名</label>--%>
+                    <%--<input class="form-control" id="exampleInputEmail1" disabled value="${username}">--%>
+                    <%--</div>--%>
+                    <div class="form-group">
+                        <label for="kahao">卡号</label>
+                        <input class="form-control" id="kahao" disabled value="${cardid}">
+                    </div>
+                    <div class="form-group">
+                        <label for="password1">密码</label>
+                        <input type="password" class="form-control" required id="password1" placeholder="输入密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">确认密码</label>
+                        <input type="password" class="form-control" required id="password2" placeholder="再次确认">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="password1">密码</label>
-            <input type="password" class="form-control" required id="password1" placeholder="输入密码">
-        </div>
-        <div class="form-group">
-            <label for="password2">确认密码</label>
-            <input type="password" class="form-control" required id="password2" placeholder="再次确认">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-    </form>
+    </div>
 </div>
 
 </body>

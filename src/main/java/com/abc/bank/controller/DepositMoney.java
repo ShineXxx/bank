@@ -1,11 +1,9 @@
 package com.abc.bank.controller;
 
-import com.abc.bank.Repository.AccountMapper;
 import com.abc.bank.common.DateconversionUtil;
 import com.abc.bank.common.MoneyUtil;
 import com.abc.bank.pojo.Account;
 import com.abc.bank.pojo.Bill;
-import com.abc.bank.pojo.CardInfo;
 import com.abc.bank.service.iml.AccountServiceImpl;
 import com.abc.bank.service.iml.BillServiceImpl;
 import com.alibaba.fastjson.JSONObject;
@@ -16,13 +14,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+/**
+ * @Author 982933616
+ * @create 2019/6/27 9:02
+ */
 
-//存款控制器
+/*
+    存款控制器
+ */
 @RestController
 public class DepositMoney {
 
@@ -34,7 +36,7 @@ public class DepositMoney {
 
     @Transactional
     @RequestMapping("/depositmoney")
-    public JSONObject depositMoney(@RequestParam @NotEmpty Long money, HttpServletRequest request) {
+    public JSONObject depositMoney(@RequestParam @NotEmpty Float money, HttpServletRequest request) {
         //构建json数据
         JSONObject jsonObject=new JSONObject();
         //用户卡信息
@@ -44,15 +46,16 @@ public class DepositMoney {
 //        if (getCardInfoFromSession(request, jsonObject,cardInfo)) return jsonObject;
 
         //输入金额合法性
-        if (validityOfamount(money, jsonObject)) return jsonObject;
+        if (validityOfamount(money, jsonObject)) {
+            return jsonObject;
+        }
 
         //数据库更新余额
         return dbOper(money, jsonObject, account,request);
     }
 
-    JSONObject dbOper(@NotEmpty @RequestParam Long money, JSONObject jsonObject, Account account,HttpServletRequest request) {
-//        String cardid=cardInfo.getId();
-        Long balance = Long.valueOf(account.getAccountBalance());
+    JSONObject dbOper(@NotEmpty @RequestParam Float money, JSONObject jsonObject, Account account,HttpServletRequest request) {
+        Float balance = Float.valueOf(account.getAccountBalance());
         //更新存款逻辑
         if (account==null) {
             jsonObject.put("state", "failed");
@@ -60,7 +63,7 @@ public class DepositMoney {
             return jsonObject;
         }
         //更新后金额
-        Long newmoney=balance+money;
+        Float newmoney=balance+money;
         account.setAccountBalance(newmoney.toString());
         if (accountService.updateAccount(account)){
             //添加账单纪录
@@ -82,8 +85,8 @@ public class DepositMoney {
         return jsonObject;
     }
 
-    boolean getCardInfoFromSession(HttpServletRequest request, JSONObject jsonObject,CardInfo cardInfo) {
-        if (cardInfo==null){
+    boolean getCardInfoFromSession(HttpServletRequest request, JSONObject jsonObject,Account account) {
+        if (account==null){
             jsonObject.put("state","error");
             jsonObject.put("address","http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/404");
             return true;
@@ -91,7 +94,7 @@ public class DepositMoney {
         return false;
     }
 
-    boolean validityOfamount(@NotNull @RequestParam Long money, JSONObject jsonObject) {
+    boolean validityOfamount(@NotNull @RequestParam Float money, JSONObject jsonObject) {
         boolean flag= MoneyUtil.ismultipleOfhundred(money,100);
         if (flag==false){
             jsonObject.put("state", "failed");

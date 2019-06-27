@@ -19,31 +19,33 @@
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
 <div class="page-header col-md-6 col-md-offset-3">
-    <h4>账单列表：
-        <small></small>
-    </h4>
+    <h2>账单列表：
+        <span class="label label-default">操作</span>
+    </h2>
 </div>
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <table class="table table-striped">
-                <thead>
-                <th>卡号</th>
-                <th>类型</th>
-                <th>时间</th>
-                <th>金额</th>
-                </thead>
-                <tbody>
-                <c:forEach items="${bills}" var="bill">
-                    <tr>
-                        <td>${bill.cardID}</td>
-                        <td>${bill.affairType}</td>
-                        <td>${bill.tradeTime}</td>
-                        <td>${bill.tradeBalance}</td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+            <div class="jumbotron">
+                <table class="table table-striped">
+                    <thead>
+                    <th>卡号</th>
+                    <th>类型</th>
+                    <th>时间</th>
+                    <th>金额</th>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${bills}" var="bill">
+                        <tr>
+                            <td>${bill.cardID}</td>
+                            <td>${bill.affairType}</td>
+                            <td>${bill.tradeTime}</td>
+                            <td>${bill.tradeBalance}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

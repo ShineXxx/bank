@@ -13,37 +13,50 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @Author 982933616
+ * @create 2019/6/27 9:02
+ */
 @Configuration
 public class WebMvcConf implements WebMvcConfigurer {
 
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        List list=new ArrayList();
-//        list.add("/");//返回login.jsp
-//        list.add("/login");//ajax登录请求路径
-//        //js，css静态资源  图片资源
-//        list.add("/dist/**");
-//        list.add("/imges/**");
-//
-//        list.add("/error");//未登录提示页面
-//        list.add("/404");//找不到提示页面
-//          list.add("/*.html");//jsps
-//
-//        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
-//                .excludePathPatterns(list);
-//
-//    }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        List list=new ArrayList();
+        list.add("/");
+        /*返回login.jsp*/
+        list.add("/login");
+        /*ajax登录请求路径*/
+
+        /*js，css静态资源  图片资源*/
+        list.add("/dist/**");
+        list.add("/imges/**");
+
+        list.add("/error");
+        /*未登录提示页面*/
+        list.add("/404");
+        /*找不到提示页面*/
+          list.add("/*.html");
+          /*jsps*/
+
+        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns(list);
+
+    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("/login");//返回login.jsp
-        registry.addViewController("/index").setViewName("/index");//用户主界面index.jsp
-        registry.addViewController("/404").setViewName("404");//错误提示页面error.jsp
-        registry.addViewController("/depositmoney.html").setViewName("/depositmoney");//*.jsp
+        registry.addViewController("/").setViewName("/login");
+        /*返回login.jsp*/
+        registry.addViewController("/index").setViewName("/index");
+        /*用户主界面index.jsp*/
+        registry.addViewController("/404").setViewName("404");
+        /*错误提示页面error.jsp*/
+        registry.addViewController("/depositmoney.html").setViewName("/depositmoney");
+        /**.jsp*/
         registry.addViewController("/withdrawmoney.html").setViewName("/withdrawmoney");
         registry.addViewController("/transferaccounts.html").setViewName("/transferaccounts");
-//        registry.addViewController("/signup.html").setViewName("/signup");
-//        registry.addViewController("/changepassword.html").setViewName("/changepassword");
+        registry.addViewController("/currencyexchange.html").setViewName("/currencyexchange");
     }
 
 
@@ -68,6 +81,7 @@ public class WebMvcConf implements WebMvcConfigurer {
 
     /**
      * 对thymeleaf的视图解析器，解析到webapp下的html目录下查找对应的页面
+     *
      * @return
      */
     @Bean

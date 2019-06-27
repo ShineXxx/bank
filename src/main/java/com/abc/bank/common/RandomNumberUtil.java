@@ -3,9 +3,15 @@ package com.abc.bank.common;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
-
+/**
+ * @Author 982933616
+ * @create 2019/6/27 9:02
+ */
 @Component
 public class RandomNumberUtil {
+    /*
+    随机数生成类
+     */
     public static String generationNumber (String prex,int integer){
         Random dom=new Random();
         int random=dom.nextInt(integer);
