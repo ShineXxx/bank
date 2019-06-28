@@ -9,7 +9,7 @@ import java.util.Random;
  */
 @Component
 public class RandomNumberUtil {
-    /*
+    /**
     随机数生成类
      */
     public static String generationNumber (String prex,int integer){

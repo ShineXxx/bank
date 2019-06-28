@@ -21,7 +21,7 @@
             });
             //货币类型改变事件
             $("#currencytype").change(function () {
-                $("#fuhao").html($("#currencytype option:selected").val())
+                $("#biaoji").html("要兑换的货币类型" + $("#currencytype option:selected").val())
             });
             //更新输入框值
             $("#btn1").click(function () {
@@ -53,14 +53,45 @@
 
         //表单提交
         function formadd() {
-            $("#myModal").modal({backdrop: "static"});
+            if ($("#InputAmount").val() <= 0) {
+                alert('金额不能为负数或0')
+                $("#InputAmount").val('')
+                return false;
+            }
+            if ($("#InputAmount").val() < 100) {
+                alert('兑换金额不得低于100')
+                $("#InputAmount").val('')
+                return false;
+            }
+            if ($("#InputAmount").val() > 10000) {
+                alert('兑换金额不得高于10000')
+                $("#InputAmount").val('')
+                return false;
+            }
+            if (!confirm('确认兑换'+$("#currencytype option:selected").html()+$("#InputAmount").val())){
+                return false
+            }
+            $("#h3").html('兑换'+$("#InputAmount").val()+$("#currencytype option:selected").html())
+            formsubmit()
             return false;
         }
 
+        function sleep(numberMillis) {
+            var now = new Date();
+            var exitTime = now.getTime() + numberMillis;
+            while (true) {
+                now = new Date();
+                if (now.getTime() > exitTime)
+                    return;
+            }
+        }
+
         function formsubmit() {
+            $(".progress-bar").css("width","0%").async
+            $("#myModal").modal("toggle");
             var formData = new FormData();
             formData.append('money', $("#InputAmount").val());
-            formData.append('currencytype', $("#fuhao").html());
+            formData.append('currencytype', $("#currencytype option:selected").val());
             $.ajax({
                 type: "POST",//方法类型
                 //dataType: "json",//预期服务器返回的数据类型
@@ -68,25 +99,31 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                async: false,
+                async: true,
                 success: function (result) {
-                    $("#myModal").modal("hide")
+                    // $("#myModal").modal("hide");
                     if (result.state == "success") {
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
-                        window.location.href = result.address;
-                        alert(msg)
+                        $(".progress-bar").css("width","10%").async
+                        $(".progress-bar").css("width","20%").async
+                        $(".progress-bar").css("width","50%").async
+                        $(".progress-bar").css("width","80%").async
+                        $(".progress-bar").css("width","100%").async
+                        $("#h3").html("成功：账户支出"+msg+"人民币")
+
                     } else if (result.state == "failed") {
+                        $(".progress-bar").css("width","0%").async
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
-                        alert(msg)
+                        $("#h3").html(msg)
 //                        window.location.href = result.address;
                     }
                 },
                 error: function () {
-                    $("#myModal").modal("hide")
-                    alert("出错了 ");
+                    // $("#myModal").modal("hide").async
+                    $(".progress-bar").css("width","0%").async
+                    $("#h3").html("联网失败 ")
                 }
             });
-            return false;
         }
     </script>
 </head>
@@ -140,7 +177,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="InputAmount">Money (in dollars)</label>
                         <div class="input-group input-group-lg">
-                            <div id="fuhao" class="input-group-addon">¤</div>
+                            <div id="fuhao" class="input-group-addon">￥</div>
                             <input type="text" class="form-control" id="InputAmount" placeholder="Amount" required>
                             <div class="input-group-addon">.00</div>
                         </div>
@@ -148,14 +185,14 @@
                     <br>
                     <br>
                     <div class="form-group">
-                        <div class="input-group input-group-lg">
-                            <label class="alert alert-success" for="InputAmount">要兑换的货币类型</label>
+                        <div class="input-group input-group-lg alert alert-success">
+                            <label for="InputAmount"><h4 id="biaoji">要兑换的货币类型</h4></label>
                             <select id="currencytype" class="form-control">
-                                <option value="$">美元</option>
-                                <option value="£">英镑</option>
-                                <option value="€">欧元</option>
-                                <option value="¥">日元</option>
-                                <option value="Br">卢布</option>
+                                <option value="USD">美元</option>
+                                <option value="GBP">英镑</option>
+                                <option value="EUR">欧元</option>
+                                <option value="JPY">日元</option>
+                                <option value="RUB">俄罗斯卢布</option>
                             </select>
                         </div>
                     </div>
@@ -209,17 +246,22 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">确认兑换金额</h4>
+                    <h4 class="modal-title" id="myModalLabel">进行中</h4>
                 </div>
                 <div class="modal-body">
                     <h3 id="h3"></h3>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" onclick="formsubmit()">确认</button>
+                    <div class="showback">
+                        <h4><i class="fa fa-angle-right"></i> 进度 </h4>
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                <span class="sr-only">0% Complete</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

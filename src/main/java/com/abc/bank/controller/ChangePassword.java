@@ -15,13 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotEmpty;
 import java.util.Map;
+
+
+/**
+修改密码控制器
+ */
 /**
  * @Author 982933616
  * @create 2019/6/27 9:02
- */
-
-/*
-修改密码控制器
  */
 @Controller
 public class ChangePassword {

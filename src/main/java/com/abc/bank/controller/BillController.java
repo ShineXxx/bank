@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+
+/**
+ * 余额控制器
+ */
 /**
  * @Author 982933616
  * @create 2019/6/27 9:02
  */
-
-//余额控制器
 @Controller
 public class BillController {
     @Autowired

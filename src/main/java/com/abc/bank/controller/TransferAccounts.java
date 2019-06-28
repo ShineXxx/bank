@@ -18,12 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
+
+/**转账控制器
+ *
+ */
 /**
  * @Author 982933616
  * @create 2019/6/27 9:02
  */
-
-//转账控制器
 @Controller
 public class TransferAccounts {
     @Autowired
@@ -31,7 +33,6 @@ public class TransferAccounts {
     @Autowired
     BillServiceImpl billService;
 
-    @Transactional(rollbackFor = Exception.class)
     @ResponseBody
     @RequestMapping("/transferaccounts")
     public JSONObject transferAccounts(@RequestParam("kahao") @NotEmpty String cardid,

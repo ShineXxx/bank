@@ -17,13 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+
+/**
+    存款控制器
+ */
+
 /**
  * @Author 982933616
  * @create 2019/6/27 9:02
- */
-
-/*
-    存款控制器
  */
 @RestController
 public class DepositMoney {
@@ -34,7 +35,6 @@ public class DepositMoney {
     BillServiceImpl billService;
 
 
-    @Transactional
     @RequestMapping("/depositmoney")
     public JSONObject depositMoney(@RequestParam @NotEmpty Float money, HttpServletRequest request) {
         //构建json数据

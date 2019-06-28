@@ -16,6 +16,10 @@
     <script type="text/javascript">
 
         function formadd() {
+            if ($("#kahao").val().toString().length!=16){
+                alert("卡号输入有误")
+                return false;
+            }
             if (confirm("确认转账金额" + $("#jine").val() + "?")) {
                 formsubmit()
             }

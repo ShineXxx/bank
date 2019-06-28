@@ -21,6 +21,11 @@
         });
 
         function formadd() {
+            var v=parseFloat($("#InputAmount").val())%100;
+            if (v!=0){
+                alert("输入有误")
+                return false;
+            }
             $("#myModal").modal({backdrop: "static"});
             return false;
         }

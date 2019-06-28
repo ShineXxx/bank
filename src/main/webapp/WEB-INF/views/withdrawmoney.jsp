@@ -45,6 +45,17 @@
         });
 
         function formadd() {
+            if ($("#InputAmount").val()<=0){
+                alert("输入有误,输入金额不能为负")
+                $("#InputAmount").val('')
+                return false;
+            }
+            var v=parseFloat($("#InputAmount").val())%50;
+            if (v!=0){
+                alert("输入有误,必须为50的整数倍")
+                $("#InputAmount").val('')
+                return false;
+            }
             $("#myModal").modal({backdrop: "static"});
             return false;
         }
@@ -65,7 +76,7 @@
                     if (result.state == "success") {
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         window.location.href = result.address;
-                        alert(msg)
+                        alert("取款成功 账户"+msg)
                     } else if (result.state == "failed") {
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         alert(msg)

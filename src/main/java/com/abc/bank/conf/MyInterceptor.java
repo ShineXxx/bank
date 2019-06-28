@@ -22,7 +22,7 @@ session拦截器
         }
         System.out.println("被拦截路径：{}"+ request.getRequestURI());
         try {
-            response.sendRedirect("/404");
+            response.sendRedirect("/404.html");
         } catch (IOException e) {
             e.printStackTrace();
         }

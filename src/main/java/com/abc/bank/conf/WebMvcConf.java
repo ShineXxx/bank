@@ -33,8 +33,6 @@ public class WebMvcConf implements WebMvcConfigurer {
         list.add("/imges/**");
 
         list.add("/error");
-        /*未登录提示页面*/
-        list.add("/404");
         /*找不到提示页面*/
           list.add("/*.html");
           /*jsps*/
@@ -50,7 +48,7 @@ public class WebMvcConf implements WebMvcConfigurer {
         /*返回login.jsp*/
         registry.addViewController("/index").setViewName("/index");
         /*用户主界面index.jsp*/
-        registry.addViewController("/404").setViewName("404");
+        registry.addViewController("/404.html").setViewName("404");
         /*错误提示页面error.jsp*/
         registry.addViewController("/depositmoney.html").setViewName("/depositmoney");
         /**.jsp*/
@@ -94,7 +92,10 @@ public class WebMvcConf implements WebMvcConfigurer {
         return viewResolver;
     }
 
-    //jsp页面的视图解析器，解析到webapp下的jsp/目录下查找对应的jsp页面
+    /**jsp页面的视图解析器，解析到webapp下的jsp/目录下查找对应的jsp页面
+     *
+     * @return
+     */
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();

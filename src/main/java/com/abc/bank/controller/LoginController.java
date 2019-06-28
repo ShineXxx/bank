@@ -20,11 +20,13 @@ import java.util.Date;
 import java.util.Map;
 
 /**
+ 登陆、退出、注册 控制器
+ */
+
+/**
  * @Author 982933616
  * @create 2019/6/27 9:02
  */
-
-//登陆、退出、注册 控制器
 @Controller
 public class LoginController {
     @Autowired
@@ -90,7 +92,10 @@ public class LoginController {
         return userReg;
     }
 
-    //注销
+    /**
+     注销
+     *
+     */
     @RequestMapping("/logout")
     public String logOut(HttpServletRequest request) {
         String page = null;
@@ -109,7 +114,6 @@ public class LoginController {
         return page;
     }
 
-    @Transactional
     @ResponseBody
     @RequestMapping("/signup")
     public JSONObject signUp(@NotNull @RequestParam("id") String cardid,
@@ -141,44 +145,28 @@ public class LoginController {
         account.setCardID(cardid);
         account.setCreditLimit("0");
         account.setEffectiveDate(new Date());
-        //查看用户是否已经存在
-        Users users=userService.getUserByIdentify(identify);
-        //已存在
-        if (users!=null) {
-            //数据库插入用户的新卡
-           if (accountService.createAccount(account)){
-               jsonObject.put("state","success");
-               jsonObject.put("msg","新卡注册成功");
-           }
-           return jsonObject;
-        }
-        //用户不存在
         //创建新用户
-        users=new Users();
-        users.setAddress(address);
-        users.setIdentify(identify);
-        users.setTelNum(phone);
-        users.setUsername(username);
-        //数据库插入新用户
-        if (!userService.insertUser(users)){
-            jsonObject.put("state","failed");
-            jsonObject.put("msg","创建用户数据库错误");
-            return jsonObject;
-        }
-        //判断卡号是否已存在
-        //？？？
-        //数据库插入新用户的新卡
-        if (!accountService.createAccount(account)){
-            jsonObject.put("state","failed");
-            jsonObject.put("msg","创建用户卡数据库错误");
+        Users newusers=new Users();
+        newusers.setAddress(address);
+        newusers.setIdentify(identify);
+        newusers.setTelNum(phone);
+        newusers.setUsername(username);
+        //查看用户是否已经存在
+        Users dbusers=userService.getUserByIdentify(identify);
+        //已存在
+        if (accountService.createUserinfo(jsonObject, account, newusers, dbusers)){
             return jsonObject;
         }
         jsonObject.put("state","success");
         jsonObject.put("msg","创建新卡、新用户成功");
+        /*
+        session保存用户卡信息
+         */
         request.getSession().setAttribute("account",account);
         jsonObject.put("address","/index");
         return jsonObject;
     }
+
 
     @RequestMapping("/signup.html")
     public String signUpPage(HttpServletRequest request, Map map) {

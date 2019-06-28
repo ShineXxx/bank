@@ -19,12 +19,16 @@ public class UserServiceImpl {
     @Autowired
     BillMapper billMapper;
 
-    //根据id获取用户信息
+    /**
+     * 根据id获取用户信息
+     */
     public Users getUserByIdentify(String identify){
         return usersMapper.selectByPrimaryKey(identify);
     }
 
-    //插入用户
+    /**
+     * 插入用户
+     */
     public boolean insertUser(Users users){
         return usersMapper.insert(users)>0;
     }

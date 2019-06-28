@@ -18,11 +18,20 @@ public class BillServiceImpl {
     @Autowired
     BillMapper billMapper;
 
-    //插入账单
+    /**插入账单
+     *
+     * @param bill
+     * @return
+     */
     public boolean insertBill(Bill bill){
         return billMapper.insert(bill)>0;
     }
-    //获取所有账单
+
+    /**获取所有账单
+     *
+     * @param cardid
+     * @return
+     */
     public List<Bill> getAllBills(String cardid){
         return billMapper.selectByCardid(cardid);
     }

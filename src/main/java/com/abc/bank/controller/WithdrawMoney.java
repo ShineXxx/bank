@@ -1,29 +1,26 @@
 package com.abc.bank.controller;
 
-import com.abc.bank.common.DateconversionUtil;
 import com.abc.bank.common.FinalValue;
 import com.abc.bank.common.MoneyUtil;
 import com.abc.bank.pojo.Account;
-import com.abc.bank.pojo.Bill;
 import com.abc.bank.service.iml.AccountServiceImpl;
 import com.abc.bank.service.iml.BillServiceImpl;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+
+/**取款控制器
+ *
+ */
 /**
  * @Author 982933616
  * @create 2019/6/27 9:02
  */
-
-//取款控制器
 @RestController
 public class WithdrawMoney {
     @Autowired
@@ -31,7 +28,6 @@ public class WithdrawMoney {
     @Autowired
     BillServiceImpl billService;
 
-    @Transactional
     @RequestMapping("/withdrawmoney")
     public JSONObject withdrawMoney(@RequestParam @NotEmpty Float money, HttpServletRequest request) {
         //构建json数据

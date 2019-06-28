@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MoneyUtil {
-    /*
+    /**
     验证金额是否为输入参数的倍数
      */
     public static boolean ismultipleOfhundred(Float money,int integer){

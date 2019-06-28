@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  */
 @Component
 public class DateconversionUtil {
-    /*
+    /**
     日期转换工具类
      */
     public static String dateConversion (Date date,String pattern){//"yyyy-MM-dd HH:mm:ss"
