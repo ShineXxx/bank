@@ -155,6 +155,7 @@ public class AccountServiceImpl {
 
     @Transactional(rollbackFor = Exception.class)
     public boolean createUserinfo(JSONObject jsonObject, Account account, Users newusers, Users dbusers) {
+        //用户已存在
         if (dbusers != null) {
             //数据库插入用户的新卡
             if (accountMapper.insert(account) > 0) {
@@ -164,7 +165,6 @@ public class AccountServiceImpl {
             return true;
         }
         //用户不存在
-
         //数据库插入新用户
         if (usersMapper.insert(newusers)<0) {
             throw new RuntimeException("创建新用户失败");
@@ -175,6 +175,8 @@ public class AccountServiceImpl {
         if (accountMapper.insert(account)<0) {
             throw new RuntimeException("创建用户卡数据库错误");
         }
+        jsonObject.put("state","success");
+        jsonObject.put("msg","创建新卡、新用户成功");
         return false;
     }
 }

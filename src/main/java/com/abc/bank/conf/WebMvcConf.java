@@ -26,11 +26,17 @@ public class WebMvcConf implements WebMvcConfigurer {
         list.add("/");
         /*返回login.jsp*/
         list.add("/login");
+        list.add("/signup");
         /*ajax登录请求路径*/
 
         /*js，css静态资源  图片资源*/
         list.add("/dist/**");
         list.add("/imges/**");
+
+        list.add("/contactform/**");
+        list.add("/css/**");
+        list.add("/img/**");
+        list.add("/lib/**");
 
         list.add("/error");
         /*找不到提示页面*/
@@ -41,6 +47,7 @@ public class WebMvcConf implements WebMvcConfigurer {
                 .excludePathPatterns(list);
 
     }
+
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

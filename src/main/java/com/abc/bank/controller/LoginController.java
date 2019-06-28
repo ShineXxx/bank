@@ -1,5 +1,6 @@
 package com.abc.bank.controller;
 
+import com.abc.bank.common.FinalValue;
 import com.abc.bank.common.RandomNumberUtil;
 import com.abc.bank.pojo.Account;
 import com.abc.bank.pojo.Users;
@@ -78,7 +79,7 @@ public class LoginController {
         //Password合法判断
         String passReg = "[1-9][0-9]{5}$";
         if (!password.matches(passReg)) {
-            result.put("passcontent", "密码不合法");
+            result.put("msg", "密码不合法");
         }
         return passReg;
     }
@@ -132,10 +133,16 @@ public class LoginController {
         if (!password.equals(password1)){
             jsonObject.put("state","failed");
             jsonObject.put("msg","两次密码不一致");
+            return jsonObject;
         }
         //卡号、密码 合法性判断
         String userReg = cardidJudge(cardid, jsonObject);
         String passReg = passwordJudge(password, jsonObject);
+        if (!password.matches(passReg)) {
+            jsonObject.put("state","failed");
+            jsonObject.put("msg", "密码不合法");
+            return jsonObject;
+        }
         //创建新卡
         Account account=new Account();
         account.setIdentify(identify);
@@ -153,16 +160,14 @@ public class LoginController {
         newusers.setUsername(username);
         //查看用户是否已经存在
         Users dbusers=userService.getUserByIdentify(identify);
-        //已存在
         if (accountService.createUserinfo(jsonObject, account, newusers, dbusers)){
             return jsonObject;
         }
-        jsonObject.put("state","success");
-        jsonObject.put("msg","创建新卡、新用户成功");
+
         /*
         session保存用户卡信息
          */
-        request.getSession().setAttribute("account",account);
+        request.getSession().setAttribute(FinalValue.KEY_ACCOUNT.getValue(),account);
         jsonObject.put("address","/index");
         return jsonObject;
     }
