@@ -35,4 +35,18 @@ public interface AccountCurrencyMapper {
      * @return
      */
     int insertSelective(AccountCurrency record);
+
+    /**
+     * 根据cardid查询
+     * @param accountCurrency
+     * @return
+     */
+    AccountCurrency selectByPrimaryKey(AccountCurrency accountCurrency);
+
+    /**
+     * 更新外币余额
+     * @param accountCurrency
+     * @return
+     */
+    int updateByPrimaryKey(AccountCurrency accountCurrency);
 }

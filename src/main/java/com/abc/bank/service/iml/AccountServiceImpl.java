@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -126,6 +127,7 @@ public class AccountServiceImpl {
             数据库减余额
              */
             account.setAccountBalance(Float.toString((dbmoney - argmoney)));
+            account.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
             if (accountMapper.updateEntity(account) > 0) {
                 /*
                 添加账单纪录
@@ -177,6 +179,6 @@ public class AccountServiceImpl {
         }
         jsonObject.put("state","success");
         jsonObject.put("msg","创建新卡、新用户成功");
-        return false;
+        return true;
     }
 }

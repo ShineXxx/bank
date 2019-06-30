@@ -109,7 +109,7 @@
         password = #{password,jdbcType=VARCHAR},
         type = #{type,jdbcType=VARCHAR},
         creditLimit = #{creditLimit,jdbcType=VARCHAR},
-        effectiveDate = #{effectiveDate,jdbcType=DATE}
+        effectiveDate = #{effectiveDate,jdbcType=TIMESTAMP}
         where cardID = #{cardID,jdbcType=VARCHAR}
     </update>
 </mapper>

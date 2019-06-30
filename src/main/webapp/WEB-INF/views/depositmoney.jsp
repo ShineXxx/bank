@@ -187,7 +187,7 @@
 
         function formsubmit() {
             var formData = new FormData();
-            formData.append('money', $("#InputAmount").val());
+            formData.append('argmoney', $("#InputAmount").val());
             $.ajax({
                 type: "POST",//方法类型
                 //dataType: "json",//预期服务器返回的数据类型

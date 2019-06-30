@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
 /**
- 登陆、退出、注册 控制器
+ * 登陆、退出、注册 控制器
  */
 
 /**
@@ -49,7 +51,7 @@ public class LoginController {
         //判断合法
         if (cardid.matches(userReg) && password.matches(passReg)) {
             //数据库判断用户密码
-            Account account=accountService.getAccountByCardid(cardid);
+            Account account = accountService.getAccountByCardid(cardid);
             if (account == null) {
                 result.put("state", "failed");
                 result.put("msg", "用户名不存在");
@@ -130,58 +132,57 @@ public class LoginController {
         //构建json对象
         JSONObject jsonObject = new JSONObject();
         //判断密码一致性
-        if (!password.equals(password1)){
-            jsonObject.put("state","failed");
-            jsonObject.put("msg","两次密码不一致");
+        if (!password.equals(password1)) {
+            jsonObject.put("state", "failed");
+            jsonObject.put("msg", "两次密码不一致");
             return jsonObject;
         }
         //卡号、密码 合法性判断
         String userReg = cardidJudge(cardid, jsonObject);
         String passReg = passwordJudge(password, jsonObject);
         if (!password.matches(passReg)) {
-            jsonObject.put("state","failed");
+            jsonObject.put("state", "failed");
             jsonObject.put("msg", "密码不合法");
             return jsonObject;
         }
         //创建新卡
-        Account account=new Account();
+        Account account = new Account();
         account.setIdentify(identify);
         account.setPassword(password);
         account.setType(cardtype);
         account.setAccountBalance("0");
         account.setCardID(cardid);
         account.setCreditLimit("0");
-        account.setEffectiveDate(new Date());
+        account.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
         //创建新用户
-        Users newusers=new Users();
+        Users newusers = new Users();
         newusers.setAddress(address);
         newusers.setIdentify(identify);
         newusers.setTelNum(phone);
         newusers.setUsername(username);
         //查看用户是否已经存在
-        Users dbusers=userService.getUserByIdentify(identify);
-        if (accountService.createUserinfo(jsonObject, account, newusers, dbusers)){
-            return jsonObject;
+        Users dbusers = userService.getUserByIdentify(identify);
+        if (accountService.createUserinfo(jsonObject, account, newusers, dbusers)) {
+            /*
+            session保存用户卡信息
+             */
+            request.getSession().setAttribute(FinalValue.KEY_ACCOUNT.getValue(), account);
+            jsonObject.put("address", "/index");
         }
 
-        /*
-        session保存用户卡信息
-         */
-        request.getSession().setAttribute(FinalValue.KEY_ACCOUNT.getValue(),account);
-        jsonObject.put("address","/index");
         return jsonObject;
     }
 
 
     @RequestMapping("/signup.html")
     public String signUpPage(HttpServletRequest request, Map map) {
-        String prex="9960001011";
-        String newcardid=null;
-        Account account=null;
-        do{
-            newcardid=RandomNumberUtil.generationNumber(prex,999999);
-            account=accountService.getAccountByCardid(newcardid);
-        }while(account!=null);
+        String prex = "9960001011";
+        String newcardid = null;
+        Account account = null;
+        do {
+            newcardid = RandomNumberUtil.generationNumber(prex, 999999);
+            account = accountService.getAccountByCardid(newcardid);
+        } while (account != null);
         map.put("cardid", newcardid);
         return "/signup";
     }

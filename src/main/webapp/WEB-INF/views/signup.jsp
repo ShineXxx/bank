@@ -197,6 +197,7 @@
         });
 
         function signup() {
+            $("#btnsignup").attr("disabled","disabled").async;
             var formData = new FormData();
             formData.append('id', $("#kahao").val());
             formData.append('pass', $("#pass").val());
@@ -229,7 +230,7 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                async: false,
+                async: true,
                 success: function (result) {
                     if (result.state == "success") {
                         $("#myModal").modal("hide")
@@ -313,7 +314,7 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <button type="button" class="btn btn-default" id="canclebtn">取消</button>
-                    <button type="submit" class="btn btn-primary">开户</button>
+                    <button type="submit" class="btn btn-primary" id="btnsignup">开户</button>
                 </div>
             </div>
         </form>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -36,7 +37,8 @@ public class DepositMoney {
 
 
     @RequestMapping("/depositmoney")
-    public JSONObject depositMoney(@RequestParam @NotEmpty Float money, HttpServletRequest request) {
+    public JSONObject depositMoney(@RequestParam @NotEmpty String argmoney, HttpServletRequest request) {
+        Float money=Float.valueOf(argmoney);
         //构建json数据
         JSONObject jsonObject=new JSONObject();
         //用户卡信息
@@ -55,7 +57,8 @@ public class DepositMoney {
     }
 
     JSONObject dbOper(@NotEmpty @RequestParam Float money, JSONObject jsonObject, Account account,HttpServletRequest request) {
-        Float balance = Float.valueOf(account.getAccountBalance());
+        Account dbaccount = accountService.getAccountByCardid(account.getCardID());
+        Float balance = Float.valueOf(dbaccount.getAccountBalance());
         //更新存款逻辑
         if (account==null) {
             jsonObject.put("state", "failed");
@@ -65,6 +68,7 @@ public class DepositMoney {
         //更新后金额
         Float newmoney=balance+money;
         account.setAccountBalance(newmoney.toString());
+        account.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
         if (accountService.updateAccount(account)){
             //添加账单纪录
             Bill bill=new Bill();

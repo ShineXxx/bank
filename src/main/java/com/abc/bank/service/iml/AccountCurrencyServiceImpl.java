@@ -3,6 +3,7 @@ package com.abc.bank.service.iml;
 import com.abc.bank.common.DateconversionUtil;
 import com.abc.bank.common.nowapi.ApiConstants;
 import com.abc.bank.pojo.Account;
+import com.abc.bank.pojo.AccountCurrency;
 import com.abc.bank.pojo.Bill;
 import com.abc.bank.repository.AccountCurrencyMapper;
 import com.abc.bank.repository.AccountMapper;
@@ -81,5 +82,33 @@ public class AccountCurrencyServiceImpl {
         String ratevalue = ratestring.getJSONObject("result").getString("rate");
         Float rate = Float.valueOf(ratevalue);
         return rate;
+    }
+
+    /**
+     * 更新外币余额
+     * @param accountCurrency
+     * @return
+     */
+    public boolean updateAccCurrency(AccountCurrency accountCurrency){
+        return accountCurrencyMapper.updateByPrimaryKey(accountCurrency)>0;
+
+    }
+
+    /**
+     * 创建外币信息
+     * @param accountCurrency
+     * @return
+     */
+    public boolean createAccCurrency(AccountCurrency accountCurrency){
+        return accountCurrencyMapper.insert(accountCurrency)>0;
+    }
+
+    /**
+     * 根据卡号获取外币信息
+     * @param accountCurrency
+     * @return
+     */
+    public AccountCurrency getAccCurrency(AccountCurrency accountCurrency){
+        return accountCurrencyMapper.selectByPrimaryKey(accountCurrency);
     }
 }
