@@ -13,6 +13,7 @@
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="/dist/jquery-3.3.1.min.js"></script>
     <script src="/dist/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript">
         (function ($) {
 
@@ -200,17 +201,24 @@
                 success: function (result) {
                     if (result.state == "success") {
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
-                        alert(msg)
-                        window.location.href = result.address;
+                        swal(msg, {
+                            icon: "success",
+                        });
+//                        window.location.href = result.address;
                     } else if (result.state == "failed") {
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
-                        alert(msg)
+                        swal(msg, {
+                            icon: "warning",
+                        });
                     } else if (result.state == "error") {
-                        window.location.href = result.address;
+                        window.location.href = '/';
                     }
                 },
                 error: function () {
-                    alert("出错了");
+                    swal("出错了", {
+                        icon: "error",
+                    });
+                    window.location.href = '/';
                 }
             });
         }

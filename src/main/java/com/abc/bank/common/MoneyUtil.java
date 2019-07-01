@@ -11,7 +11,7 @@ public class MoneyUtil {
     验证金额是否为输入参数的倍数
      */
     public static boolean ismultipleOfhundred(Float money,int integer){
-        if (money==null||integer==0) {
+        if (money==null||integer==0||money>10000) {
                 return false;
         }
         if (money%integer==0&&money>0){

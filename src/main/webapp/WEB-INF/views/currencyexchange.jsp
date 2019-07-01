@@ -98,7 +98,9 @@
                             id: id,
                             on: function (callback) {
                                 if (callback && callback instanceof Function) {
-                                    modal.find('.ok').click(function () { callback(true); });
+                                    modal.find('.ok').click(function () {
+                                        callback(true);
+                                    });
                                 }
                             },
                             hide: function (callback) {
@@ -119,8 +121,12 @@
                             id: id,
                             on: function (callback) {
                                 if (callback && callback instanceof Function) {
-                                    modal.find('.ok').click(function () { callback(true); });
-                                    modal.find('.cancel').click(function () { callback(false); });
+                                    modal.find('.ok').click(function () {
+                                        callback(true);
+                                    });
+                                    modal.find('.cancel').click(function () {
+                                        callback(false);
+                                    });
                                 }
                             },
                             hide: function (callback) {
@@ -138,8 +144,10 @@
                             url: '',
                             width: 800,
                             height: 550,
-                            onReady: function () { },
-                            onShown: function (e) { }
+                            onReady: function () {
+                            },
+                            onShown: function (e) {
+                            }
                         }, options || {});
                         var modalId = generateId();
 
@@ -167,6 +175,7 @@
             }();
         })(jQuery);
     </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -223,11 +232,24 @@
                 $("#InputAmount").val('')
                 return false;
             }
-            if (!confirm('确认兑换'+$("#currencytype option:selected").html()+$("#InputAmount").val())){
-                return false
-            }
-            $("#h3").html('兑换'+$("#InputAmount").val()+$("#currencytype option:selected").html())
-            formsubmit()
+            swal({
+                title: "确认兑换?",
+                text: " "+$("#InputAmount").val()+$("#currencytype option:selected").html(),
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $("#h3").html('兑换'+$("#InputAmount").val()+$("#currencytype option:selected").html())
+                    formsubmit()
+                    return false;
+//                    swal("Poof! Your imaginary file has been deleted!", {
+//                        icon: "success",
+//                    });
+                } else {
+                    return false;
+                }
+            });
             return false;
         }
 
@@ -242,7 +264,7 @@
         }
 
         function formsubmit() {
-            $(".progress-bar").css("width","0%").async
+            $(".progress-bar").css("width", "0%").async
             $("#myModal").modal("toggle");
             var formData = new FormData();
             formData.append('money', $("#InputAmount").val());
@@ -259,15 +281,15 @@
                     // $("#myModal").modal("hide");
                     if (result.state == "success") {
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
-                        $(".progress-bar").css("width","10%").async
-                        $(".progress-bar").css("width","20%").async
-                        $(".progress-bar").css("width","50%").async
-                        $(".progress-bar").css("width","80%").async
-                        $(".progress-bar").css("width","100%").async
-                        $("#h3").html("成功：账户支出"+msg+"人民币")
+                        $(".progress-bar").css("width", "10%").async
+                        $(".progress-bar").css("width", "20%").async
+                        $(".progress-bar").css("width", "50%").async
+                        $(".progress-bar").css("width", "80%").async
+                        $(".progress-bar").css("width", "100%").async
+                        $("#h3").html("成功：账户支出" + msg + "人民币")
 
                     } else if (result.state == "failed") {
-                        $(".progress-bar").css("width","0%").async
+                        $(".progress-bar").css("width", "0%").async
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         $("#h3").html(msg)
 //                        window.location.href = result.address;
@@ -275,7 +297,7 @@
                 },
                 error: function () {
                     // $("#myModal").modal("hide").async
-                    $(".progress-bar").css("width","0%").async
+                    $(".progress-bar").css("width", "0%").async
                     $("#h3").html("联网失败 ")
                 }
             });
@@ -408,7 +430,8 @@
                     <div class="showback">
                         <h4><i class="fa fa-angle-right"></i> 进度 </h4>
                         <div class="progress progress-striped active">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0"
+                                 aria-valuemax="100" style="width: 0%">
                                 <span class="sr-only">0% Complete</span>
                             </div>
                         </div>

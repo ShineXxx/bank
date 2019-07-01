@@ -12,6 +12,7 @@
     <title>存款</title>
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="/dist/jquery-3.3.1.min.js"></script>
+
     <script src="/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {

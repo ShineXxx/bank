@@ -12,6 +12,7 @@
     <title>存款</title>
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="/dist/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         (function ($) {
@@ -181,6 +182,10 @@
                 Ewin.alert("输入有误");
                 return false;
             }
+            if ($("#InputAmount").val()>10000||$("#InputAmount").val()<=0){
+                Ewin.alert("存款金额区间：0~10000");
+                return false;
+            }
             $("#myModal").modal({backdrop: "static"});
             return false;
         }
@@ -201,17 +206,19 @@
                     if (result.state == "success") {
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         // window.location.href = result.address;
-                        alert(msg)
+                        swal("存款成功 ","账户"+msg,"success");
                     } else if (result.state == "failed") {
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
-                        alert(msg)
+                        swal(msg)
                     } else if (result.state == "error") {
                         // window.location.href = result.address;
+                    }else {
+                        swal("出错了")
                     }
                 },
                 error: function () {
                     $("#myModal").modal("hide")
-                    alert("出错了");
+                    swal("出错了")
                 }
             });
         }
@@ -226,7 +233,7 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8 col-md-offset-3">
             <div class="jumbotron">
                 <form class="form-inline" onsubmit="return formadd()">
                     <div class="form-group">

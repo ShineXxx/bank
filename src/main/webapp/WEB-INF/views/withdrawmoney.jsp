@@ -13,7 +13,7 @@
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="/dist/jquery-3.3.1.min.js"></script>
     <script src="/dist/js/bootstrap.min.js"></script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript">
         (function ($) {
 
@@ -100,7 +100,9 @@
                             id: id,
                             on: function (callback) {
                                 if (callback && callback instanceof Function) {
-                                    modal.find('.ok').click(function () { callback(true); });
+                                    modal.find('.ok').click(function () {
+                                        callback(true);
+                                    });
                                 }
                             },
                             hide: function (callback) {
@@ -121,8 +123,12 @@
                             id: id,
                             on: function (callback) {
                                 if (callback && callback instanceof Function) {
-                                    modal.find('.ok').click(function () { callback(true); });
-                                    modal.find('.cancel').click(function () { callback(false); });
+                                    modal.find('.ok').click(function () {
+                                        callback(true);
+                                    });
+                                    modal.find('.cancel').click(function () {
+                                        callback(false);
+                                    });
                                 }
                             },
                             hide: function (callback) {
@@ -140,8 +146,10 @@
                             url: '',
                             width: 800,
                             height: 550,
-                            onReady: function () { },
-                            onShown: function (e) { }
+                            onReady: function () {
+                            },
+                            onShown: function (e) {
+                            }
                         }, options || {});
                         var modalId = generateId();
 
@@ -201,13 +209,13 @@
         });
 
         function formadd() {
-            if ($("#InputAmount").val()<=0){
-                Ewin.alert("输入有误,输入金额不能为负");
+            if ($("#InputAmount").val() <= 0 || $("#InputAmount").val() > 10000) {
+                Ewin.alert("取款金额区间：0~10000");
                 $("#InputAmount").val('')
                 return false;
             }
-            var v=parseFloat($("#InputAmount").val())%50;
-            if (v!=0){
+            var v = parseFloat($("#InputAmount").val()) % 50;
+            if (v != 0) {
                 Ewin.alert("输入有误,必须为50的整数倍");
                 $("#InputAmount").val('')
                 return false;
@@ -233,18 +241,18 @@
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         // window.location.href = result.address;
                         // Ewin.alert("取款成功 账户"+msg);
-                        alert("取款成功 账户"+msg);
+                        swal("取款成功 ", "账户" + msg, "success");
                     } else if (result.state == "failed") {
                         var msg = typeof(result.msg) == "undefined" ? "" : result.msg + " "
                         // Ewin.alert(msg);
-                        alert(msg);
-                       window.location.href = '/index';
+                        swal("提示", msg, "error");
+//                       window.location.href = '/index';
                     }
                 },
                 error: function () {
                     $("#myModal").modal("hide")
                     // Ewin.alert("出错了 ");
-                    alert("出错了 ");
+                    swal("出错了");
                 }
             });
             return false;
@@ -253,14 +261,16 @@
 </head>
 <body>
 <jsp:include page="nav.jsp"></jsp:include>
-<div class="page-header col-md-6 col-md-offset-3">
-    <h2 class="alert alert-info">取款:   (50的整数倍)
-        <%--<span class="label label-default"></span>--%>
-    </h2>
+<div class="row">
+    <div class="page-header col-md-6 col-md-offset-3">
+        <h2 class="alert alert-info">取款: (50的整数倍)
+            <%--<span class="label label-default"></span>--%>
+        </h2>
+    </div>
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-2 col-md-offset-2">
             <div>
                 <h1>
                     <a href="javascript:void(0);" id="btn1">
@@ -300,10 +310,12 @@
                 <form class="form-inline" onsubmit="return formadd()">
                     <div class="form-group">
                         <label class="sr-only" for="InputAmount">Money (in dollars)</label>
-                        <div class="input-group input-group-lg">
-                            <div class="input-group-addon">￥</div>
-                            <input type="text" class="form-control" id="InputAmount" placeholder="Amount" required>
-                            <div class="input-group-addon">.00</div>
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="input-group input-group-lg">
+                                <div class="input-group-addon">￥</div>
+                                <input type="text" class="form-control" id="InputAmount" placeholder="Amount" required>
+                                <div class="input-group-addon">.00</div>
+                            </div>
                         </div>
                     </div>
                     <br>
@@ -313,7 +325,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-md-4 ">
+        <div class="col-md-2 ">
             <div>
                 <h1>
                     <a href="javascript:void(0);" id="btn4">

@@ -43,7 +43,9 @@ public class DepositMoney {
         JSONObject jsonObject=new JSONObject();
         //用户卡信息
         Account account= (Account) request.getSession().getAttribute("account");
-
+        if (account==null){
+            return null;
+        }
         //判断用户是否登陆过
 //        if (getCardInfoFromSession(request, jsonObject,cardInfo)) return jsonObject;
 
@@ -78,7 +80,7 @@ public class DepositMoney {
             bill.setTradeTime(DateconversionUtil.dateConversion(new Date(),"yyyy-mm-dd HH:mm:ss"));
             if (billService.insertBill(bill)){
                 jsonObject.put("state", "success");
-                jsonObject.put("msg", "存款成功");
+                jsonObject.put("msg", "+"+money);
                 jsonObject.put("address","/index");
                 return jsonObject;
             }
