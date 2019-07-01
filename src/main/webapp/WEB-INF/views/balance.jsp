@@ -20,7 +20,7 @@
                 $("#h3").html($("#InputAmount").val())
             });
             $("#btn").click(function () {
-                window.location.href = "/getbills.html";
+                window.location.href = "/getbills.html?pn=1";
             })
         });
 
@@ -74,9 +74,11 @@
             <div class="jumbotron">
                 <label for="yue">余额</label>
                 <input class="form-control" id="yue" disabled value="${yue}">
+                <br>
+                <br>
+                <br>
                 <label for="type">卡类型</label>
                 <input class="form-control" id="type" disabled value="${type}">
-                <br>
                 <br>
                 <br>
                 <div>

@@ -100,7 +100,9 @@
                             id: id,
                             on: function (callback) {
                                 if (callback && callback instanceof Function) {
-                                    modal.find('.ok').click(function () { callback(true); });
+                                    modal.find('.ok').click(function () {
+                                        callback(true);
+                                    });
                                 }
                             },
                             hide: function (callback) {
@@ -121,8 +123,12 @@
                             id: id,
                             on: function (callback) {
                                 if (callback && callback instanceof Function) {
-                                    modal.find('.ok').click(function () { callback(true); });
-                                    modal.find('.cancel').click(function () { callback(false); });
+                                    modal.find('.ok').click(function () {
+                                        callback(true);
+                                    });
+                                    modal.find('.cancel').click(function () {
+                                        callback(false);
+                                    });
                                 }
                             },
                             hide: function (callback) {
@@ -140,8 +146,10 @@
                             url: '',
                             width: 800,
                             height: 550,
-                            onReady: function () { },
-                            onShown: function (e) { }
+                            onReady: function () {
+                            },
+                            onShown: function (e) {
+                            }
                         }, options || {});
                         var modalId = generateId();
 
@@ -172,11 +180,11 @@
     <script type="text/javascript">
 
         function formadd() {
-            if ($("#kahao").val().toString().length!=16){
+            if ($("#kahao").val().toString().length != 16) {
                 Ewin.alert("卡号输入有误");
                 return false;
             }
-            Ewin.confirm({ message: "确认转账金额" + $("#jine").val() + "?" }).on(function (e) {
+            Ewin.confirm({message: "确认转账金额" + $("#jine").val() + "?"}).on(function (e) {
                 if (!e) {
                     return;
                 }
@@ -235,7 +243,7 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6 col-md-offset-3">
             <div class="jumbotron">
                 <form onsubmit="return formadd()">
                     <%--<div class="form-group">--%>

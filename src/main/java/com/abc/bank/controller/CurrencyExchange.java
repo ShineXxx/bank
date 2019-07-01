@@ -54,7 +54,7 @@ public class CurrencyExchange {
          */
         Account account = (Account) request.getSession().getAttribute(FinalValue.KEY_ACCOUNT.getValue());
         try {
-            Thread.sleep(2000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

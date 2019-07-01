@@ -234,13 +234,13 @@
             }
             swal({
                 title: "确认兑换?",
-                text: " "+$("#InputAmount").val()+$("#currencytype option:selected").html(),
+                text: " " + $("#InputAmount").val() + $("#currencytype option:selected").html(),
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
-                    $("#h3").html('兑换'+$("#InputAmount").val()+$("#currencytype option:selected").html())
+                    $("#h3").html('兑换' + $("#InputAmount").val() + $("#currencytype option:selected").html())
                     formsubmit()
                     return false;
 //                    swal("Poof! Your imaginary file has been deleted!", {
@@ -313,7 +313,7 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-2 col-md-offset-2">
             <div>
                 <h1>
                     <a href="javascript:void(0);" id="btn1">
@@ -353,24 +353,28 @@
                 <form class="form-inline" onsubmit="return formadd()">
                     <div class="form-group">
                         <label class="sr-only" for="InputAmount">Money (in dollars)</label>
-                        <div class="input-group input-group-lg">
-                            <div id="fuhao" class="input-group-addon">￥</div>
-                            <input type="text" class="form-control" id="InputAmount" placeholder="Amount" required>
-                            <div class="input-group-addon">.00</div>
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="input-group input-group-lg">
+                                <div id="fuhao" class="input-group-addon">￥</div>
+                                <input type="text" class="form-control" id="InputAmount" placeholder="Amount" required>
+                                <div class="input-group-addon">.00</div>
+                            </div>
                         </div>
                     </div>
                     <br>
                     <br>
-                    <div class="form-group">
-                        <div class="input-group input-group-lg alert alert-success">
-                            <label for="InputAmount"><h4 id="biaoji">要兑换的货币类型</h4></label>
-                            <select id="currencytype" class="form-control">
-                                <option value="USD">美元</option>
-                                <option value="GBP">英镑</option>
-                                <option value="EUR">欧元</option>
-                                <option value="JPY">日元</option>
-                                <option value="RUB">俄罗斯卢布</option>
-                            </select>
+                    <div class="col-md-offset-1">
+                        <div class="form-group">
+                            <div class="input-group input-group-lg alert alert-success">
+                                <label for="InputAmount"><h4 id="biaoji">要兑换的货币类型</h4></label>
+                                <select id="currencytype" class="form-control">
+                                    <option value="USD">美元</option>
+                                    <option value="GBP">英镑</option>
+                                    <option value="EUR">欧元</option>
+                                    <option value="JPY">日元</option>
+                                    <option value="RUB">俄罗斯卢布</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <br>
@@ -379,7 +383,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-md-4 ">
+        <div class="col-md-2 ">
             <div>
                 <h1>
                     <a href="javascript:void(0);" id="btn4">

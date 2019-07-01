@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Login</title>
+    <title>开户</title>
     <link href="/dist/css/signin.css" rel="stylesheet">
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="/dist/jquery-3.3.1.min.js"></script>
