@@ -197,7 +197,7 @@
         });
 
         function signup() {
-            $("#btnsignup").attr("disabled","disabled").async;
+            $("#btnsignup").attr("disabled", "disabled").async;
             var formData = new FormData();
             formData.append('id', $("#kahao").val());
             formData.append('pass', $("#pass").val());
@@ -211,7 +211,7 @@
                 Ewin.alert("两次密码不一致");
                 return false;
             }
-            if ($("#pass1").val().toString().length!=6){
+            if ($("#pass1").val().toString().length != 6) {
                 Ewin.alert("密码输入格式有误");
                 return false;
             }
@@ -235,7 +235,7 @@
                     if (result.state == "success") {
                         $("#myModal").modal("hide")
                         var cont = typeof(result.msg) == "undefined" ? "" : result.msg + " "
-                        Ewin.confirm({message:  cont+"前往主页？"}).on(function (e) {
+                        Ewin.confirm({message: cont + "前往主页？"}).on(function (e) {
                             if (!e) {
                                 window.location.href = '/'
                                 return;
@@ -258,66 +258,70 @@
 </head>
 <body class="text-center">
 <div class="container">
-    <div class="jumbotron">
-        <form class="form-horizontal" onsubmit="return signup()" id="form1">
-            <div class="form-group">
-                <label for="kahao" class="col-sm-2 control-label">卡号</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="kahao" disabled value="${cardid}">
-                </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="jumbotron">
+                <form class="form-horizontal" onsubmit="return signup()" id="form1">
+                    <div class="form-group">
+                        <label for="kahao" class="col-sm-2 control-label">卡号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="kahao" disabled value="${cardid}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pass" class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="pass" required placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pass1" class="col-sm-2 control-label">重复密码</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="pass1" required placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" required placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="identify" class="col-sm-2 control-label">身份证</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="identify" required placeholder="Identify">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-2 control-label">电话</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="phone" required placeholder="phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-sm-2 control-label">地址</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="address" required placeholder="address">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="identify" class="col-sm-2 control-label">卡类型</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="type">
+                                <option value="借记卡">借记卡</option>
+                                <option value="信用卡">信用卡</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <button type="button" class="btn btn-default" id="canclebtn">取消</button>
+                            <button type="submit" class="btn btn-primary" id="btnsignup">开户</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="pass" class="col-sm-2 control-label">密码</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="pass" required placeholder="Password">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="pass1" class="col-sm-2 control-label">重复密码</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="pass1" required placeholder="Password">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="name" class="col-sm-2 control-label">姓名</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" required placeholder="Name">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="identify" class="col-sm-2 control-label">身份证</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="identify" required placeholder="Identify">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="phone" class="col-sm-2 control-label">电话</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="phone" required placeholder="phone">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="address" class="col-sm-2 control-label">地址</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="address" required placeholder="address">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="identify" class="col-sm-2 control-label">卡类型</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="type">
-                        <option value="借记卡">借记卡</option>
-                        <option value="信用卡">信用卡</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <button type="button" class="btn btn-default" id="canclebtn">取消</button>
-                    <button type="submit" class="btn btn-primary" id="btnsignup">开户</button>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 </div>

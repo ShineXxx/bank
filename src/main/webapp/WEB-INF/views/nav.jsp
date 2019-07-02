@@ -176,16 +176,36 @@
         background-color: #CCCCCC;
     }
 </style>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
+<nav class="navbar navbar-fixed-top navbar-transparent" style="margin-top: 500px">
+    <div class="container-fluid" style="height: 79.2px">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="/index">主页</a>
+            <div>
+                <h1>
+                    <a href="/index">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                主 页
+                            </div>
+                        </div>
+                    </a>
+                </h1>
+            </div>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><button type="button" id="btn_exit" class="btn btn-default navbar-btn">退出</button></li>
+                <li><div style="margin-right: 20px">
+                    <h1>
+                        <a href="javacript:void(0);" id="btn_exit">
+                            <div class="thumbnail">
+                                <div class="caption">
+                                    退 出
+                                </div>
+                            </div>
+                        </a>
+                    </h1>
+                </div></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

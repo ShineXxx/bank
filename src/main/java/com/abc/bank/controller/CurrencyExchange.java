@@ -53,11 +53,6 @@ public class CurrencyExchange {
         获取用户信息
          */
         Account account = (Account) request.getSession().getAttribute(FinalValue.KEY_ACCOUNT.getValue());
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         if (account == null) {
             throw new RuntimeException("account为空,获取用户信息失败");
         }
